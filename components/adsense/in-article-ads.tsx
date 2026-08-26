@@ -1,8 +1,6 @@
 'use client';
 
-import { AdsCardProps } from "@/types/props";
-
-const InArticleAds = (_props: AdsCardProps) => {
+const InArticleAds = () => {
 
     return null;
 }
