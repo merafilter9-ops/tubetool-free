@@ -1,0 +1,105 @@
+import {
+    Type,
+    Text,
+    Tag,
+    Hash,
+    BookImage,
+    Lightbulb,
+    FileSearch,
+    Info,
+    Phone,
+    ShieldCheck,
+    Handshake,
+    ImageUp,
+} from 'lucide-react';
+
+import { SidebarItems } from '@/types/constants';
+
+export const SIDEBAR_ITEMS: SidebarItems[] = [
+    {
+        category: 'Video Tools',
+        items: [
+            {
+                label: 'Title Generator',
+                href: '/tools/title-generator',
+                icon: Type,
+                tooltip: 'Title Generator'
+            },
+            {
+                label: 'Description Generator',
+                href: '/tools/description-generator',
+                icon: Text,
+                tooltip: 'Description Generator'
+            },
+            {
+                label: 'Tag Generator',
+                href: '/tools/tag-generator',
+                icon: Tag,
+                tooltip: 'Tag Generator'
+            },
+            {
+                label: 'Hashtag Generator',
+                href: '/tools/hashtag-generator',
+                icon: Hash,
+                tooltip: 'Hashtag Generator'
+            }
+        ]
+    },
+    {
+        category: 'Thumbnail Tools',
+        items: [
+            {
+                label: 'Thumbnail Quality Checker',
+                href: '/tools/thumbnail-quality-checker',
+                icon: ImageUp,
+                tooltip: 'Thumbnail Quality Checker'
+            }
+        ]
+    },
+    {
+        category: 'Keyword Tools',
+        items: [
+            {
+                label: 'Topic Ideas',
+                href: '/tools/topic-ideas',
+                icon: Lightbulb,
+                tooltip: 'Topic Ideas'
+            },
+            {
+                label: 'Keyword Research',
+                href: '/tools/keyword-research',
+                icon: FileSearch,
+                tooltip: 'Keyword Research'
+            }
+        ]
+    },
+    {
+        category: 'About Tubetool',
+        items: [
+            {
+                label: 'About Us',
+                href: '/about-us',
+                icon: Info,
+                tooltip: 'About Us'
+            },
+            {
+                label: 'Contact Us',
+                href: '/contact-us',
+                icon: Phone,
+                tooltip: 'Contact Us'
+            },
+            {
+                label: 'Privacy Policy',
+                href: '/privacy-policy',
+                icon: ShieldCheck,
+                tooltip: 'Privacy Policy'
+            },
+            {
+                label: 'Terms & Conditions',
+                href: '/terms-and-conditions',
+                icon: Handshake,
+                tooltip: 'Terms & Conditions'
+            }
+        ]
+    }
+];
