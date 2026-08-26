@@ -1,6 +1,6 @@
 'use client';
 
-const HorizontalAds = (props: any) => {
+const HorizontalAds: React.FC<any> = () => {
     return null;
 }
 

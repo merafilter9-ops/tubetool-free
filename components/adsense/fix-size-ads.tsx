@@ -1,6 +1,6 @@
 'use client';
 
-const FixSizeAds = (props: any) => {
+const FixSizeAds: React.FC<any> = () => {
     return null;
 }
 

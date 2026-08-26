@@ -1,6 +1,6 @@
 'use client';
 
-const InArticleAds = (props: any) => {
+const InArticleAds: React.FC<any> = () => {
 
     return null;
 }
