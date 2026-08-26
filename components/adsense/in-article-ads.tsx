@@ -1,6 +1,6 @@
 'use client';
 
-const InArticleAds = () => {
+const InArticleAds = (props: any) => {
 
     return null;
 }
