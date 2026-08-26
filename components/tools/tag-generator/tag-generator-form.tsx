@@ -8,16 +8,9 @@ import confetti from 'canvas-confetti';
 import InputForm from "@/components/tools/input-form";
 import { Tooltip } from "@/components/custom-tooltip";
 import { Skeleton } from "@/components/ui/skeleton";
-import {
-    Accordion,
-    AccordionContent,
-    AccordionItem,
-    AccordionTrigger,
-} from "@/components/ui/accordion";
 
 import API_URL_V1 from "@/lib/axios-config";
 import { copyToClipboard } from "@/lib/utils";
-import { GeneratedTags } from "@/types/tools";
 
 export const TagGeneratorForm = () => {
     const [isPending, startTransition] = useTransition();
