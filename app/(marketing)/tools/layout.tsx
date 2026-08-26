@@ -1,7 +1,5 @@
 import dynamic from "next/dynamic";
-
 import { Skeleton } from "@/components/ui/skeleton";
-import InArticleAds from "@/components/adsense/in-article-ads";
 
 const OtherToolsList = dynamic(
     () => import("@/components/tools/other-tools-list"),
