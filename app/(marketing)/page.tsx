@@ -55,7 +55,7 @@ export default function MarketingHome() {
         </p>
         <div className="w-full flex items-center justify-center space-x-2 pt-5">
           <Button variant="default" size="default" className="transition-all duration-200 transform hover:scale-105 flex items-center gap-2">
-            <Link href="/auth/signin">
+            <Link href="/tools/title-generator">
               Try TubeTool
             </Link>
           </Button>

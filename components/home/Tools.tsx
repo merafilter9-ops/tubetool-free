@@ -136,7 +136,7 @@ export default function Tools() {
           viewport={{ once: true }}
           className="text-center mt-8 pb-2"
         >
-          <Link href="/auth/signin" className="p-0 m-0">
+          <Link href="/tools/title-generator" className="p-0 m-0">
             <Button className="transition-all duration-200 transform hover:scale-105">
               Signin to use all 15+ Tools for Free
             </Button>

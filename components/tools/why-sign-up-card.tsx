@@ -29,7 +29,7 @@ const WhySignUpCard = () => {
                         Want to access more free features and tools on TubeTool? Sign up for free and get access your own AI powered dashboard.
                     </p>
 
-                    <Link href="/auth/signup">
+                    <Link href="/tools/title-generator">
                         <Button className="w-full">
                             <span>Sign up</span>
                             <ArrowRight className="w-4 h-4 ml-2" />

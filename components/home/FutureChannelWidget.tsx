@@ -620,7 +620,7 @@ export default function FutureChannelWidget() {
                 Don&apos;t let your channel grow slowly. With TubeTool, you can achieve in months what takes others years.
                 Start optimizing your growth today.
               </p>
-              <Link href="/auth/signin" className="p-0 m-0">
+              <Link href="/tools/title-generator" className="p-0 m-0">
                 <Button className="transition-all duration-200 transform hover:scale-105 flex items-center gap-2 mx-auto">
                   <Users className="w-4 sm:w-5 h-4 sm:h-5" />
                   Start Growing Faster Today

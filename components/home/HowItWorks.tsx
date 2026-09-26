@@ -112,7 +112,7 @@ export default function HowItWorks() {
               Join thousands of creators who are already growing their channels with TubeTool.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/auth/signin" className="p-0 m-0">
+              <Link href="/tools/title-generator" className="p-0 m-0">
                 <Button className="transition-all duration-200 transform hover:scale-105">
                   Start Free Trial
                 </Button>

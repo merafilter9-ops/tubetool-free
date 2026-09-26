@@ -56,7 +56,7 @@ export default function Hero() {
           transition={{ duration: 0.6, delay: 0.3 }}
           className="flex flex-row flex-wrap gap-4 justify-center items-center mb-12"
         >
-          <Link href="/auth/signin" className="p-0 m-0">
+          <Link href="/tools/title-generator" className="p-0 m-0">
             <button className="btn-primary flex items-center space-x-2 text-sm md:text-lg">
               <span>Start Free</span>
               <ArrowRight className="w-5 h-5" />

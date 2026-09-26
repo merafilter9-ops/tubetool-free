@@ -175,7 +175,7 @@ export default function TimeSaverWidget() {
             transition={{ duration: 0.6, delay: 1 }}
             className="mt-8"
           >
-            <Link href="/auth/signin" className="p-0 m-0">
+            <Link href="/tools/title-generator" className="p-0 m-0">
               <Button className="transition-all duration-200 transform hover:scale-105 flex items-center gap-2 mx-auto">
                 <Zap className="w-5 h-5" />
                 Start Saving Time Today

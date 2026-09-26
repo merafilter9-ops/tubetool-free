@@ -265,7 +265,7 @@ export default function DiagnosticWidget() {
 
                 {/* Action Buttons */}
                 <div className="flex flex-col sm:flex-row gap-4 justify-center pb-2">
-                  <Link href="/auth/signin" className="p-0 m-0">
+                  <Link href="/tools/title-generator" className="p-0 m-0">
                     <Button className="transition-all duration-200 transform max-sm:w-full hover:scale-105 flex items-center gap-2">
                       <ArrowRight className="w-5 h-5" />
                       Try These Solutions Free
@@ -294,7 +294,7 @@ export default function DiagnosticWidget() {
               <p className="text-gray-800 dark:text-dark-300 mb-4">
                 Don&apos;t see your challenge? <span className="text-primary-600 dark:text-primary-400">TubeTool has solutions for everything</span>
               </p>
-              <Link href="/auth/signin" className="p-0 m-0">
+              <Link href="/tools/title-generator" className="p-0 m-0">
                 <Button className="transition-all duration-200 transform hover:scale-105 flex items-center gap-2 mx-auto">
                   <span>Explore All Tools</span>
                   <ArrowRight className="w-5 h-5" />
