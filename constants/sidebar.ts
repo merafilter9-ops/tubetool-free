@@ -12,6 +12,7 @@ import {
     Handshake,
     ImageUp,
     Heart,
+    Sparkles,
 } from 'lucide-react';
 
 import { SidebarItems } from '@/types/constants';
@@ -31,6 +32,12 @@ export const SIDEBAR_ITEMS: SidebarItems[] = [
                 href: '/tools/description-generator',
                 icon: Text,
                 tooltip: 'Description Generator'
+            },
+            {
+                label: 'Script Hook Generator',
+                href: '/tools/script-hook-generator',
+                icon: Sparkles,
+                tooltip: 'Script Hook Generator'
             },
             {
                 label: 'Tag Generator',

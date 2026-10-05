@@ -1,4 +1,4 @@
-import { BookImage, CirclePlay, FilePenLine, FileSearch, Hash, ImageUp, Lightbulb, Tag, Text, TextSearch, Type } from "lucide-react";
+import { BookImage, CirclePlay, FilePenLine, FileSearch, Hash, ImageUp, Lightbulb, Sparkles, Tag, Text, TextSearch, Type } from "lucide-react";
 import { SelectOptionsType, CountryCodeType, VideoCategoryType, GermanToEnglishMapType, SuggestedActionType, PlanOptionsType } from "./types";
 
 export const VIDEO_CATEGORIES: VideoCategoryType[] = [
@@ -738,6 +738,12 @@ export const TOOLS = [
         value: "description-generator",
         icon: Text,
         description: "Description generator is a tool that helps you to generate the SEO optimized Description."
+    },
+    {
+        label: "Script Hook Generator",
+        value: "script-hook-generator",
+        icon: Sparkles,
+        description: "Generate high-retention 15-30 second video opening hooks and scripts that stop viewer drop-off instantly."
     },
     {
         label: "Tag Generator",

@@ -21,6 +21,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
             priority: 0.8,
         },
         {
+            url: 'https://tubetool.ai/tools/script-hook-generator',
+            lastModified: new Date(),
+            changeFrequency: 'daily',
+            priority: 0.8,
+        },
+        {
             url: 'https://tubetool.ai/tools/tag-generator',
             lastModified: new Date(),
             changeFrequency: 'daily',
