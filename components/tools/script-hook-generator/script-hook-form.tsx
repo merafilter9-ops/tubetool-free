@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useTransition } from "react";
-import { Copy, Check, Sparkles, Eye, Tv, Lightbulb, HelpCircle } from "lucide-react";
+import { useState, useTransition, useEffect } from "react";
+import { Copy, Check, Sparkles, Eye, Tv, Lightbulb, HelpCircle, Wand2 } from "lucide-react";
 import { toast } from "sonner";
 import confetti from 'canvas-confetti';
 
@@ -30,19 +30,60 @@ interface HookItem {
     psychologicalReasoning: string;
 }
 
+const AUDIENCE_OPTIONS = [
+    { label: "✨ Auto-Detect from Topic (Recommended)", value: "Auto-Detect" },
+    { label: "🌐 General Viewers & Broad Audience", value: "General Viewers & Broad Audience" },
+    { label: "🌱 Beginners & Novices (101 Level)", value: "Beginners & Novices" },
+    { label: "🔥 Intermediate Enthusiasts & Hobbyists", value: "Intermediate Enthusiasts" },
+    { label: "⚡ Advanced Professionals & Industry Experts", value: "Advanced Professionals & Experts" },
+    { label: "🚀 Entrepreneurs, Business Owners & Creators", value: "Entrepreneurs & Creators" },
+    { label: "💻 Tech, Software Developers & AI Builders", value: "Tech Developers & AI Enthusiasts" },
+    { label: "🎮 Gamers & Esports Community", value: "Gamers & Esports Fans" },
+    { label: "🎓 Students & Lifelong Learners", value: "Students & Academic Learners" },
+    { label: "🏋️ Fitness, Health & Wellness Viewers", value: "Fitness & Health Enthusiasts" },
+    { label: "🛍️ Buyers & Shoppers Looking for Product Reviews", value: "Shoppers & Product Review Seekers" }
+];
+
 export const ScriptHookForm = () => {
     const [isPending, startTransition] = useTransition();
     const [topic, setTopic] = useState("");
-    const [audience, setAudience] = useState("");
+    const [audienceOption, setAudienceOption] = useState("Auto-Detect");
+    const [detectedAudienceHint, setDetectedAudienceHint] = useState("");
     const [hookVibe, setHookVibe] = useState("Balanced & Engaging");
     const [videoFormat, setVideoFormat] = useState("YouTube Long-form (16:9)");
     
     const [result, setResult] = useState<HookItem[]>([]);
     const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
 
+    // Auto-infer audience segment hint based on video topic keywords
+    useEffect(() => {
+        if (!topic.trim()) {
+            setDetectedAudienceHint("");
+            return;
+        }
+
+        const lower = topic.toLowerCase();
+        if (lower.includes("beginner") || lower.includes("how to") || lower.includes("guide") || lower.includes("101") || lower.includes("easy")) {
+            setDetectedAudienceHint("Auto-detected: Beginners & Novices");
+        } else if (lower.includes("game") || lower.includes("gaming") || lower.includes("ps5") || lower.includes("xbox") || lower.includes("minecraft") || lower.includes("playstation")) {
+            setDetectedAudienceHint("Auto-detected: Gamers & Esports Fans");
+        } else if (lower.includes("code") || lower.includes("ai") || lower.includes("python") || lower.includes("software") || lower.includes("app") || lower.includes("tech")) {
+            setDetectedAudienceHint("Auto-detected: Tech Developers & AI Enthusiasts");
+        } else if (lower.includes("money") || lower.includes("business") || lower.includes("saas") || lower.includes("startup") || lower.includes("entrepreneur") || lower.includes("marketing")) {
+            setDetectedAudienceHint("Auto-detected: Entrepreneurs & Creators");
+        } else if (lower.includes("review") || lower.includes("vs") || lower.includes("unboxing") || lower.includes("buy") || lower.includes("best")) {
+            setDetectedAudienceHint("Auto-detected: Shoppers & Product Review Seekers");
+        } else if (lower.includes("workout") || lower.includes("diet") || lower.includes("gym") || lower.includes("fitness") || lower.includes("weight loss")) {
+            setDetectedAudienceHint("Auto-detected: Fitness & Health Enthusiasts");
+        } else {
+            setDetectedAudienceHint("Auto-detected: General Viewers & Niche Audience");
+        }
+    }, [topic]);
+
     const resetInputs = () => {
         setTopic("");
-        setAudience("");
+        setAudienceOption("Auto-Detect");
+        setDetectedAudienceHint("");
         setHookVibe("Balanced & Engaging");
         setVideoFormat("YouTube Long-form (16:9)");
     };
@@ -53,12 +94,16 @@ export const ScriptHookForm = () => {
             return;
         }
 
+        const effectiveAudience = audienceOption === "Auto-Detect" 
+            ? (detectedAudienceHint.replace("Auto-detected: ", "") || "General Viewers")
+            : audienceOption;
+
         startTransition(async () => {
             try {
                 const response = await API_URL_V1.post('/ai/script-hook-generator', {
                     data: {
                         Video_Topic: topic,
-                        Target_Audience: audience || "General Viewers",
+                        Target_Audience: effectiveAudience,
                         Hook_Vibe: hookVibe,
                         Video_Format: videoFormat
                     }
@@ -110,10 +155,10 @@ export const ScriptHookForm = () => {
                 Script Hook Generator Tool
             </h1>
 
-            {/* UNIFORM INPUT FORM (NO GREY CARD WRAPPER) */}
+            {/* UNIFORM INPUT FORM */}
             <div className="w-full flex gap-4 flex-col items-center">
                 
-                {/* ROW 1: TOPIC & AUDIENCE */}
+                {/* ROW 1: TOPIC & AUDIENCE DROPDOWN */}
                 <div className="w-full flex flex-col md:flex-row items-center gap-4">
                     <div className="w-full flex gap-1 flex-col">
                         <Label htmlFor="topic">Enter Video Topic or Title *</Label>
@@ -127,16 +172,32 @@ export const ScriptHookForm = () => {
                             onChange={(e) => setTopic(e.target.value)}
                         />
                     </div>
+
                     <div className="w-full flex gap-1 flex-col">
-                        <Label htmlFor="audience">Target Audience</Label>
-                        <Input
-                            id="audience"
-                            type="text"
-                            placeholder="Enter about your target audience (optional)"
-                            className="w-full"
-                            value={audience}
-                            onChange={(e) => setAudience(e.target.value)}
-                        />
+                        <div className="flex items-center justify-between">
+                            <Label htmlFor="audience-select">Target Audience</Label>
+                            {audienceOption === "Auto-Detect" && detectedAudienceHint && (
+                                <span className="text-xs font-medium text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
+                                    <Wand2 className="w-3 h-3" />
+                                    {detectedAudienceHint}
+                                </span>
+                            )}
+                        </div>
+                        <Select
+                            value={audienceOption}
+                            onValueChange={(value) => setAudienceOption(value)}
+                        >
+                            <SelectTrigger className="w-full">
+                                <SelectValue id="audience-select" placeholder="Select Target Audience" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                {AUDIENCE_OPTIONS.map((opt) => (
+                                    <SelectItem key={opt.value} value={opt.value}>
+                                        {opt.label}
+                                    </SelectItem>
+                                ))}
+                            </SelectContent>
+                        </Select>
                     </div>
                 </div>
 
@@ -186,7 +247,7 @@ export const ScriptHookForm = () => {
                 <div className="w-full flex items-center justify-end gap-2 mt-1">
                     <Button
                         variant="outline"
-                        disabled={!topic && !audience}
+                        disabled={!topic}
                         onClick={resetInputs}
                     >
                         Reset
