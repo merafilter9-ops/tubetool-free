@@ -18,12 +18,15 @@ import {
     ArrowRight, 
     Flame, 
     X,
-    Loader2
+    Loader2,
+    Type,
+    FileText
 } from "lucide-react";
 
 import { Skeleton } from "@/components/ui/skeleton";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -34,17 +37,32 @@ import { GoNoGoDashboard } from "./go-no-go-dashboard";
 import { BuyMeCoffeeCard } from "@/components/buy-me-coffee-card";
 import { BuyMeCoffeeBanner } from "@/components/buy-me-coffee-banner";
 
-const SUGGESTED_TOPICS = [
+const SUGGESTED_KEYWORDS = [
     { label: "Chest Workout Routine", icon: "🔥" },
     { label: "Build AI SaaS with Next.js", icon: "🤖" },
     { label: "iPhone 16 Pro Review", icon: "📱" },
     { label: "YouTube Shorts Monetization", icon: "💰" }
 ];
 
+const SUGGESTED_TITLES = [
+    { label: "I Tried 100 Pushups Every Day for 30 Days", icon: "💪" },
+    { label: "How I Built an AI App in 7 Days (No Code)", icon: "🚀" },
+    { label: "Stop Buying MacBooks in 2026 Until You Watch This", icon: "⚠️" }
+];
+
+const SUGGESTED_SCRIPTS = [
+    { label: "In this video, I'm testing the top 5 AI coding tools...", icon: "⚡" },
+    { label: "What happens if you quit sugar for 30 days straight?", icon: "🧪" }
+];
+
 export const GoNoGoForm = () => {
 
     const [isPending, startTransition] = useTransition();
+    const [activeTab, setActiveTab] = useState<string>("keyword");
+    
     const [keyword, setKeyword] = useState<string>("");
+    const [videoTitle, setVideoTitle] = useState<string>("");
+    const [scriptText, setScriptText] = useState<string>("");
     
     // Optional Settings
     const [targetRegion, setTargetRegion] = useState<string>("India");
@@ -63,6 +81,8 @@ export const GoNoGoForm = () => {
 
     const resetInputs = () => {
         setKeyword("");
+        setVideoTitle("");
+        setScriptText("");
         setTargetRegion("India");
         setLanguage("English");
         setContentType("All Types");
@@ -72,26 +92,37 @@ export const GoNoGoForm = () => {
         setCompetitorLink("");
     };
 
+    const getActiveQuery = () => {
+        if (activeTab === "keyword") return keyword;
+        if (activeTab === "title") return videoTitle;
+        if (activeTab === "script") return scriptText;
+        return keyword || videoTitle || scriptText;
+    };
+
     const handleSubmit = (topicOverride?: string) => {
-        const queryKeyword = topicOverride || keyword;
-        if (!queryKeyword) {
-            toast.error("Please enter a Keyword or Topic");
+        const queryKeyword = topicOverride || getActiveQuery();
+        if (!queryKeyword || !queryKeyword.trim()) {
+            toast.error("Please enter a Keyword, Title, or Script");
             return;
         }
         if (topicOverride) {
-            setKeyword(topicOverride);
+            if (activeTab === "keyword") setKeyword(topicOverride);
+            else if (activeTab === "title") setVideoTitle(topicOverride);
+            else setScriptText(topicOverride);
         }
+
         startTransition(async () => {
             try {
                 const payload = {
-                    keyword: queryKeyword,
+                    keyword: queryKeyword.trim(),
                     targetRegion,
                     language,
                     contentType,
                     channelSize,
                     goal,
                     skillLevel,
-                    competitorLink
+                    competitorLink,
+                    activeTab
                 };
                 
                 const response = await API_URL_V1.post('/ai/go-no-go-predictor', { data: payload });
@@ -107,6 +138,8 @@ export const GoNoGoForm = () => {
             }
         });
     };
+
+    const currentQuery = getActiveQuery();
 
     return (
         <div className="w-full flex flex-col gap-6 pt-2 pb-12">
@@ -127,26 +160,44 @@ export const GoNoGoForm = () => {
             </div>
 
             {/* FORM CARD */}
-            <div className="w-full bg-card border rounded-2xl p-5 md:p-6 shadow-sm flex flex-col gap-5">
+            <div className="w-full bg-card border rounded-2xl p-4 sm:p-5 md:p-6 shadow-sm flex flex-col gap-5">
                 
-                {/* STEP 1: TOPIC INPUT */}
+                {/* STEP 1: TOPIC / TITLE / SCRIPT INPUT */}
                 <div className="flex flex-col gap-3">
                     <div className="flex items-center justify-between">
-                        <Label htmlFor="keyword" className="text-sm font-semibold flex items-center gap-1.5 text-foreground">
-                            1. Enter Your Video Topic or Idea *
+                        <Label className="text-sm font-semibold flex items-center gap-1.5 text-foreground">
+                            1. Enter Your Video Topic, Title, or Script *
                         </Label>
-                        <span className="text-[11px] text-muted-foreground hidden sm:inline-block">Enter keywords, questions, or video title</span>
+                        <span className="text-[11px] text-muted-foreground hidden sm:inline-block">Analyze ideas before production</span>
                     </div>
 
-                    <Tabs defaultValue="keyword" className="w-full">
-                        <div className="w-full overflow-x-auto no-scrollbar pb-1">
-                            <TabsList className="bg-muted/60 p-1 rounded-lg h-auto flex w-max sm:w-full justify-start sm:justify-start gap-1">
-                                <TabsTrigger value="keyword" className="rounded-md text-[11px] sm:text-xs font-medium px-2.5 py-1.5 shrink-0">Keyword / Topic</TabsTrigger>
-                                <TabsTrigger value="title" disabled className="rounded-md text-[11px] sm:text-xs font-medium px-2.5 py-1.5 opacity-50 shrink-0">Video Title (Soon)</TabsTrigger>
-                                <TabsTrigger value="description" disabled className="rounded-md text-[11px] sm:text-xs font-medium px-2.5 py-1.5 opacity-50 shrink-0">Script (Soon)</TabsTrigger>
-                            </TabsList>
-                        </div>
+                    <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+                        {/* 3-COLUMN EQUAL GRID ON MOBILE (TAP TO SWITCH, NO SCROLLING) */}
+                        <TabsList className="grid grid-cols-3 w-full bg-muted/60 p-1 rounded-xl h-auto mb-3">
+                            <TabsTrigger 
+                                value="keyword" 
+                                className="w-full text-center text-[11px] sm:text-xs font-medium px-1 py-1.5 rounded-lg flex items-center justify-center gap-1"
+                            >
+                                <Search className="w-3 h-3 shrink-0 hidden sm:inline-block" />
+                                <span>Keyword</span>
+                            </TabsTrigger>
+                            <TabsTrigger 
+                                value="title" 
+                                className="w-full text-center text-[11px] sm:text-xs font-medium px-1 py-1.5 rounded-lg flex items-center justify-center gap-1"
+                            >
+                                <Type className="w-3 h-3 shrink-0 hidden sm:inline-block" />
+                                <span>Video Title</span>
+                            </TabsTrigger>
+                            <TabsTrigger 
+                                value="script" 
+                                className="w-full text-center text-[11px] sm:text-xs font-medium px-1 py-1.5 rounded-lg flex items-center justify-center gap-1"
+                            >
+                                <FileText className="w-3 h-3 shrink-0 hidden sm:inline-block" />
+                                <span>Script Hook</span>
+                            </TabsTrigger>
+                        </TabsList>
                         
+                        {/* TAB 1: KEYWORD / TOPIC */}
                         <TabsContent value="keyword" className="mt-0 space-y-2.5">
                             <div className="relative group w-full">
                                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-muted-foreground group-focus-within:text-primary transition-colors">
@@ -176,19 +227,97 @@ export const GoNoGoForm = () => {
                                 )}
                             </div>
 
-                            {/* POPULAR SUGGESTION CHIPS */}
+                            {/* KEYWORD SUGGESTION CHIPS */}
                             <div className="flex flex-wrap items-center gap-1.5 pt-1">
                                 <span className="text-[11px] font-medium text-muted-foreground flex items-center gap-1 mr-1">
                                     <Flame className="w-3 h-3 text-rose-500" /> Try Popular:
                                 </span>
-                                {SUGGESTED_TOPICS.map((topic, i) => (
+                                {SUGGESTED_KEYWORDS.map((item, i) => (
                                     <button
                                         key={i}
-                                        onClick={() => handleSubmit(topic.label)}
+                                        onClick={() => handleSubmit(item.label)}
                                         className="text-[11px] bg-muted/50 hover:bg-primary/10 hover:text-primary border text-muted-foreground px-2.5 py-1 rounded-md transition-all flex items-center gap-1"
                                     >
-                                        <span>{topic.icon}</span>
-                                        <span>{topic.label}</span>
+                                        <span>{item.icon}</span>
+                                        <span>{item.label}</span>
+                                    </button>
+                                ))}
+                            </div>
+                        </TabsContent>
+
+                        {/* TAB 2: VIDEO TITLE */}
+                        <TabsContent value="title" className="mt-0 space-y-2.5">
+                            <div className="relative group w-full">
+                                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-muted-foreground group-focus-within:text-primary transition-colors">
+                                    <Type className="w-4 h-4" />
+                                </div>
+                                <Input
+                                    id="videoTitle"
+                                    type="text"
+                                    placeholder="e.g. I Tried 100 Pushups Every Day for 30 Days (Does It Work?)"
+                                    className="w-full pl-9 pr-8 text-sm h-10 rounded-xl"
+                                    value={videoTitle}
+                                    onChange={(e) => setVideoTitle(e.target.value)}
+                                    onKeyDown={(e) => {
+                                        if (e.key === 'Enter' && videoTitle && !isPending) {
+                                            handleSubmit();
+                                        }
+                                    }}
+                                />
+                                {videoTitle && (
+                                    <button 
+                                        onClick={() => setVideoTitle("")}
+                                        className="absolute inset-y-0 right-0 pr-3 flex items-center text-muted-foreground hover:text-foreground transition-colors"
+                                    >
+                                        <X className="w-4 h-4" />
+                                    </button>
+                                )}
+                            </div>
+
+                            {/* TITLE SUGGESTION CHIPS */}
+                            <div className="flex flex-wrap items-center gap-1.5 pt-1">
+                                <span className="text-[11px] font-medium text-muted-foreground flex items-center gap-1 mr-1">
+                                    <Flame className="w-3 h-3 text-rose-500" /> Example Titles:
+                                </span>
+                                {SUGGESTED_TITLES.map((item, i) => (
+                                    <button
+                                        key={i}
+                                        onClick={() => handleSubmit(item.label)}
+                                        className="text-[11px] bg-muted/50 hover:bg-primary/10 hover:text-primary border text-muted-foreground px-2.5 py-1 rounded-md transition-all flex items-center gap-1 text-left"
+                                    >
+                                        <span>{item.icon}</span>
+                                        <span className="truncate max-w-[200px]">{item.label}</span>
+                                    </button>
+                                ))}
+                            </div>
+                        </TabsContent>
+
+                        {/* TAB 3: SCRIPT HOOK */}
+                        <TabsContent value="script" className="mt-0 space-y-2.5">
+                            <div className="w-full">
+                                <Textarea
+                                    id="scriptText"
+                                    rows={3}
+                                    placeholder="Paste your video opening hook or script outline (e.g. 'In this video, I am testing the top 5 AI coding tools to see if they can build a full app...')"
+                                    className="w-full text-sm rounded-xl p-3"
+                                    value={scriptText}
+                                    onChange={(e) => setScriptText(e.target.value)}
+                                />
+                            </div>
+
+                            {/* SCRIPT SUGGESTION CHIPS */}
+                            <div className="flex flex-wrap items-center gap-1.5 pt-1">
+                                <span className="text-[11px] font-medium text-muted-foreground flex items-center gap-1 mr-1">
+                                    <Flame className="w-3 h-3 text-rose-500" /> Example Hooks:
+                                </span>
+                                {SUGGESTED_SCRIPTS.map((item, i) => (
+                                    <button
+                                        key={i}
+                                        onClick={() => handleSubmit(item.label)}
+                                        className="text-[11px] bg-muted/50 hover:bg-primary/10 hover:text-primary border text-muted-foreground px-2.5 py-1 rounded-md transition-all flex items-center gap-1 text-left"
+                                    >
+                                        <span>{item.icon}</span>
+                                        <span className="truncate max-w-[220px]">{item.label}</span>
                                     </button>
                                 ))}
                             </div>
@@ -352,7 +481,7 @@ export const GoNoGoForm = () => {
                             Reset
                         </Button>
                         <Button
-                            disabled={!keyword || isPending}
+                            disabled={!currentQuery || !currentQuery.trim() || isPending}
                             onClick={() => handleSubmit()}
                             size="sm"
                             className="bg-primary/90 hover:bg-primary text-primary-foreground text-xs font-semibold px-4 flex-1 sm:flex-initial sm:min-w-[140px]"
