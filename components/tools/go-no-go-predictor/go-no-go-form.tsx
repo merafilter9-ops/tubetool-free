@@ -139,11 +139,13 @@ export const GoNoGoForm = () => {
                     </div>
 
                     <Tabs defaultValue="keyword" className="w-full">
-                        <TabsList className="mb-3 bg-muted/60 p-0.5 rounded-lg h-9">
-                            <TabsTrigger value="keyword" className="rounded-md text-xs font-medium px-3 py-1">Keyword / Topic</TabsTrigger>
-                            <TabsTrigger value="title" disabled className="rounded-md text-xs font-medium px-3 py-1 opacity-50">Video Title (Soon)</TabsTrigger>
-                            <TabsTrigger value="description" disabled className="rounded-md text-xs font-medium px-3 py-1 opacity-50">Script (Soon)</TabsTrigger>
-                        </TabsList>
+                        <div className="w-full overflow-x-auto no-scrollbar pb-1">
+                            <TabsList className="bg-muted/60 p-1 rounded-lg h-auto flex w-max sm:w-full justify-start sm:justify-start gap-1">
+                                <TabsTrigger value="keyword" className="rounded-md text-[11px] sm:text-xs font-medium px-2.5 py-1.5 shrink-0">Keyword / Topic</TabsTrigger>
+                                <TabsTrigger value="title" disabled className="rounded-md text-[11px] sm:text-xs font-medium px-2.5 py-1.5 opacity-50 shrink-0">Video Title (Soon)</TabsTrigger>
+                                <TabsTrigger value="description" disabled className="rounded-md text-[11px] sm:text-xs font-medium px-2.5 py-1.5 opacity-50 shrink-0">Script (Soon)</TabsTrigger>
+                            </TabsList>
+                        </div>
                         
                         <TabsContent value="keyword" className="mt-0 space-y-2.5">
                             <div className="relative group w-full">
@@ -329,23 +331,23 @@ export const GoNoGoForm = () => {
                 )}
 
                 {/* BOTTOM ACTION BAR */}
-                <div className="flex justify-between items-center pt-3 border-t border-border/60">
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-3 border-t border-border/60">
                     <Button 
                         variant="ghost" 
                         size="sm"
                         onClick={() => setShowAdvanced(!showAdvanced)}
-                        className="text-xs text-primary gap-1 px-2"
+                        className="text-xs text-primary gap-1 px-2 self-start sm:self-auto"
                     >
                         <span>Advanced Options</span>
                         {showAdvanced ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
                     </Button>
 
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 w-full sm:w-auto justify-end">
                         <Button
                             variant="outline"
                             size="sm"
                             onClick={resetInputs}
-                            className="text-xs"
+                            className="text-xs shrink-0"
                         >
                             Reset
                         </Button>
@@ -353,17 +355,17 @@ export const GoNoGoForm = () => {
                             disabled={!keyword || isPending}
                             onClick={() => handleSubmit()}
                             size="sm"
-                            className="bg-primary/90 hover:bg-primary text-primary-foreground text-xs font-semibold px-4 min-w-[140px]"
+                            className="bg-primary/90 hover:bg-primary text-primary-foreground text-xs font-semibold px-4 flex-1 sm:flex-initial sm:min-w-[140px]"
                         >
                             {isPending ? (
-                                <span className="flex items-center gap-1.5">
+                                <span className="flex items-center justify-center gap-1.5">
                                     <Loader2 className="w-3.5 h-3.5 animate-spin" />
                                     Analyzing...
                                 </span>
                             ) : (
-                                <span className="flex items-center gap-1.5">
+                                <span className="flex items-center justify-center gap-1.5">
                                     <span>Analyze & Predict</span>
-                                    <ArrowRight className="w-3.5 h-3.5" />
+                                    <ArrowRight className="w-3.5 h-3.5 shrink-0" />
                                 </span>
                             )}
                         </Button>
