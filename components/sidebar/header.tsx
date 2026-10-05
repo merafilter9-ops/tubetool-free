@@ -25,7 +25,7 @@ export const Header = () => {
                 {/* OUR MISSION & GOAL TOP NAVBAR BADGE */}
                 <Link 
                     href="/our-mission" 
-                    className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gradient-to-r from-red-500/10 to-amber-500/10 hover:from-red-500/20 hover:to-amber-500/20 border border-amber-500/30 text-amber-600 dark:text-amber-400 text-xs font-semibold transition-all shadow-sm group"
+                    className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gradient-to-r from-red-500/10 to-amber-500/10 hover:from-red-500/20 hover:to-amber-500/20 border border-amber-500/30 text-amber-600 dark:text-amber-400 text-xs font-semibold transition-all shadow-sm group"
                     title="View Tubetool's Mission"
                 >
                     <Coffee className="w-3.5 h-3.5 text-red-500 group-hover:rotate-12 transition-transform" />
