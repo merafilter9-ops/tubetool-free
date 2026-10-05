@@ -31,17 +31,17 @@ interface HookItem {
 }
 
 const AUDIENCE_OPTIONS = [
-    { label: "✨ Auto-Detect from Topic (Recommended)", value: "Auto-Detect" },
-    { label: "🌐 General Viewers & Broad Audience", value: "General Viewers & Broad Audience" },
-    { label: "🌱 Beginners & Novices (101 Level)", value: "Beginners & Novices" },
-    { label: "🔥 Intermediate Enthusiasts & Hobbyists", value: "Intermediate Enthusiasts" },
-    { label: "⚡ Advanced Professionals & Industry Experts", value: "Advanced Professionals & Experts" },
-    { label: "🚀 Entrepreneurs, Business Owners & Creators", value: "Entrepreneurs & Creators" },
-    { label: "💻 Tech, Software Developers & AI Builders", value: "Tech Developers & AI Enthusiasts" },
-    { label: "🎮 Gamers & Esports Community", value: "Gamers & Esports Fans" },
-    { label: "🎓 Students & Lifelong Learners", value: "Students & Academic Learners" },
-    { label: "🏋️ Fitness, Health & Wellness Viewers", value: "Fitness & Health Enthusiasts" },
-    { label: "🛍️ Buyers & Shoppers Looking for Product Reviews", value: "Shoppers & Product Review Seekers" }
+    { label: "Auto-Detect from Topic (Recommended)", value: "Auto-Detect" },
+    { label: "General Viewers & Broad Audience", value: "General Viewers & Broad Audience" },
+    { label: "Beginners & Novices (101 Level)", value: "Beginners & Novices" },
+    { label: "Intermediate Enthusiasts & Hobbyists", value: "Intermediate Enthusiasts" },
+    { label: "Advanced Professionals & Industry Experts", value: "Advanced Professionals & Experts" },
+    { label: "Entrepreneurs, Business Owners & Creators", value: "Entrepreneurs & Creators" },
+    { label: "Tech, Software Developers & AI Builders", value: "Tech Developers & AI Enthusiasts" },
+    { label: "Gamers & Esports Community", value: "Gamers & Esports Fans" },
+    { label: "Students & Lifelong Learners", value: "Students & Academic Learners" },
+    { label: "Fitness, Health & Wellness Viewers", value: "Fitness & Health Enthusiasts" },
+    { label: "Buyers & Shoppers Looking for Product Reviews", value: "Shoppers & Product Review Seekers" }
 ];
 
 export const ScriptHookForm = () => {
