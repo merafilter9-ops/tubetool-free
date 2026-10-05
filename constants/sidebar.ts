@@ -11,6 +11,7 @@ import {
     ShieldCheck,
     Handshake,
     ImageUp,
+    Heart,
 } from 'lucide-react';
 
 import { SidebarItems } from '@/types/constants';
@@ -49,6 +50,12 @@ export const SIDEBAR_ITEMS: SidebarItems[] = [
         category: 'Thumbnail Tools',
         items: [
             {
+                label: 'Thumbnail Generator',
+                href: '/tools/thumbnail-generator',
+                icon: BookImage,
+                tooltip: 'Thumbnail Generator'
+            },
+            {
                 label: 'Thumbnail Quality Checker',
                 href: '/tools/thumbnail-quality-checker',
                 icon: ImageUp,
@@ -59,6 +66,12 @@ export const SIDEBAR_ITEMS: SidebarItems[] = [
     {
         category: 'Keyword Tools',
         items: [
+            {
+                label: 'GO / NO-GO Predictor',
+                href: '/tools/go-no-go-predictor',
+                icon: FileSearch,
+                tooltip: 'GO / NO-GO Predictor'
+            },
             {
                 label: 'Topic Ideas',
                 href: '/tools/topic-ideas',
@@ -76,6 +89,12 @@ export const SIDEBAR_ITEMS: SidebarItems[] = [
     {
         category: 'About Tubetool',
         items: [
+            {
+                label: 'Our Mission',
+                href: '/our-mission',
+                icon: Heart,
+                tooltip: 'Our Mission & Support'
+            },
             {
                 label: 'About Us',
                 href: '/about-us',

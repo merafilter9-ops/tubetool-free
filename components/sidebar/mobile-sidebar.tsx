@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Home, Menu } from "lucide-react";
+import { Home, Menu, Heart, Sparkles } from "lucide-react";
 import { usePathname } from 'next/navigation'
 
 import { Button } from "@/components/ui/button"
@@ -34,7 +34,7 @@ const MobileSidebar = () => {
                     </Button>
                 </SheetTrigger>
                 <SheetContent side="left" className="pl-3 py-2 pr-0">
-                    <div className="flex flex-col max-h-full overflow-y-auto">
+                    <div className="flex flex-col max-h-full overflow-y-auto pr-3">
                         <div className="flex items-center">
                             <Image
                                 src="/brand/logo.png"
@@ -47,7 +47,7 @@ const MobileSidebar = () => {
                                 Tubetool
                             </h1>
                         </div>
-                        <div className="w-full flex flex-col gap-2 pr-1 pt-4">
+                        <div className="w-full flex flex-col gap-2 pr-1 pt-4 pb-6">
 
                             <div className="w-full">
                                 <Link href="/" className="w-full">
@@ -67,8 +67,6 @@ const MobileSidebar = () => {
                                     </SheetClose>
                                 </Link>
                             </div>
-
-
 
                             {
                                 SIDEBAR_ITEMS.map((category, index) => (
@@ -103,15 +101,26 @@ const MobileSidebar = () => {
                                 ))
                             }
 
+                            <div className="mt-4 p-3.5 rounded-xl bg-gradient-to-br from-rose-500/10 via-red-500/5 to-amber-500/10 border border-rose-500/20 text-xs flex flex-col gap-2">
+                                <div className="flex items-center gap-1.5 font-bold text-rose-600 dark:text-rose-400">
+                                    <Heart className="w-4 h-4 fill-rose-500 text-rose-500 animate-pulse" />
+                                    <span>Support TubeTool</span>
+                                </div>
+                                <p className="text-muted-foreground text-[11px] leading-relaxed">
+                                    100% free tools for creators. Help us keep server infrastructure free forever!
+                                </p>
+                                <Link href="/our-mission" className="w-full">
+                                    <SheetClose asChild>
+                                        <Button size="sm" className="w-full h-8 text-xs font-semibold bg-rose-600 hover:bg-rose-700 text-white shadow-sm gap-1.5">
+                                            <Sparkles className="w-3.5 h-3.5" /> Our Mission
+                                        </Button>
+                                    </SheetClose>
+                                </Link>
+                            </div>
+
                             <div className="mt-2 w-full">
                                 <div className="w-full flex items-center gap-2 justify-between text-xs font-normal">
                                     <p className="text-gray-500 dark:text-gray-600">v1.0.0</p>
-                                    {/* <Link
-                                href="/release-notes"
-                                className="text-gray-500 dark:text-gray-600 hover:text-gray-800 dark:hover:text-gray-200 flex items-center ease-in-out transition-all">
-                                Release Notes
-                                <ExternalLink className="w-3 h-3 ml-2" />
-                            </Link> */}
                                 </div>
                             </div>
 

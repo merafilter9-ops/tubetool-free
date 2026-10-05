@@ -7,19 +7,18 @@ import confetti from 'canvas-confetti';
 
 import InputFormTitle from "@/components/tools/input-form-title";
 import { Tooltip } from "@/components/custom-tooltip";
-import { Skeleton } from "@/components/ui/skeleton"
+import { Skeleton } from "@/components/ui/skeleton";
+import { BuyMeCoffeeBanner } from "@/components/buy-me-coffee-banner";
 
 import API_URL_V1 from "@/lib/axios-config";
 import { copyToClipboard } from "@/lib/utils";
 import { onGenerateTitle } from "@/types/props";
-import { usePlanType } from "@/hooks/use-current-user";
 import { TitleGeneratePayload } from "@/types/tools";
 
 export const TitleGeneratorForm = () => {
     const [isPending, startTransition] = useTransition();
     const [result, setResult] = useState<string[]>([]);
 
-    const planType = usePlanType();
 
     const handleGenerate = (values: onGenerateTitle) => {
         startTransition(async () => {
@@ -32,13 +31,11 @@ export const TitleGeneratorForm = () => {
                 language: values.language,
             };
 
-            if (!planType || planType !== "free") {
-                data.Video_Style = values.videoStyle;
-                data.Channel_Branding = values.channelBranding;
-                data.Call_to_Action = values.callToAction;
-                data.Clickbait_Level = values.clickbaitLevel;
-                data.Preferred_Length = values.preferredLength;
-            }
+            data.Video_Style = values.videoStyle;
+            data.Channel_Branding = values.channelBranding;
+            data.Call_to_Action = values.callToAction;
+            data.Clickbait_Level = values.clickbaitLevel;
+            data.Preferred_Length = values.preferredLength;
 
             try {
                 const response = await API_URL_V1.post('/ai/generate-titles', {
@@ -106,6 +103,8 @@ export const TitleGeneratorForm = () => {
                                 }
                             </div>
                         </div>
+
+                        <BuyMeCoffeeBanner className="mt-8" />
                     </div>
                 )
             }

@@ -6,6 +6,7 @@ import confetti from "canvas-confetti";
 
 import InputFormThumb from "@/components/tools/input-form-thumb";
 import { Skeleton } from "@/components/ui/skeleton";
+import { BuyMeCoffeeBanner } from "@/components/buy-me-coffee-banner";
 
 import API_URL_V1 from "@/lib/axios-config";
 import { Label } from "@/components/ui/label";
@@ -138,6 +139,8 @@ export const ThumbnailQualityCheckerForm = () => {
                                 </div>
                             </div>
                         </div>
+
+                        <BuyMeCoffeeBanner className="mt-8" />
                     </div>
                 )
             }

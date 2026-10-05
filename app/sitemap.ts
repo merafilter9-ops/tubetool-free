@@ -51,6 +51,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
             priority: 0.8,
         },
         {
+            url: 'https://tubetool.ai/tools/thumbnail-generator',
+            lastModified: new Date(),
+            changeFrequency: 'daily',
+            priority: 0.8,
+        },
+        {
             url: 'https://tubetool.ai/tools/thumbnail-quality-checker',
             lastModified: new Date(),
             changeFrequency: 'daily',
@@ -58,6 +64,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
         },
         {
             url: 'https://tubetool.ai/tools/thumbnail-guide',
+            lastModified: new Date(),
+            changeFrequency: 'daily',
+            priority: 0.8,
+        },
+        {
+            url: 'https://tubetool.ai/tools/go-no-go-predictor',
             lastModified: new Date(),
             changeFrequency: 'daily',
             priority: 0.8,
@@ -73,6 +85,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
             lastModified: new Date(),
             changeFrequency: 'daily',
             priority: 0.8,
+        },
+        {
+            url: 'https://tubetool.ai/our-mission',
+            lastModified: new Date(),
+            changeFrequency: 'daily',
+            priority: 0.9,
         },
         {
             url: 'https://tubetool.ai/about-us',

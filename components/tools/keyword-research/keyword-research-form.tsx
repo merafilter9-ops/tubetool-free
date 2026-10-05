@@ -10,16 +10,14 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
 import API_URL_V1 from "@/lib/axios-config";
-import { KeywordResearchResult } from "@/types/tools";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { formatLargeNumber } from "@/lib/utils";
+import { KeywordResearchDashboard } from "./keyword-research-dashboard";
+import { BuyMeCoffeeBanner } from "@/components/buy-me-coffee-banner";
 
 export const KeywordResearchForm = () => {
 
     const [isPending, startTransition] = useTransition();
     const [keywords, setKeywords] = useState<string>("");
-    const [exactKeyword, setExactKeyword] = useState<KeywordResearchResult[]>([]);
-    const [relatedKeywords, setRelatedKeywords] = useState<KeywordResearchResult[]>([]);
+    const [dashboardData, setDashboardData] = useState<any>(null);
 
     const resetInputs = () => {
         setKeywords("");
@@ -33,8 +31,7 @@ export const KeywordResearchForm = () => {
         startTransition(async () => {
             try {
                 const response = await API_URL_V1.post('/ai/keyword-research', { data: keywords });
-                setExactKeyword(response?.data?.data?.exact_keyword);
-                setRelatedKeywords(response?.data?.data?.related_keywords);
+                setDashboardData(response?.data?.data);
                 confetti({
                     particleCount: 100,
                     spread: 70,
@@ -102,42 +99,10 @@ export const KeywordResearchForm = () => {
             }
 
             {
-                !isPending && exactKeyword?.length > 0 && (
-                    <div className='w-full mt-4 h-fit border rounded'>
-                        <Table>
-                            <TableHeader>
-                                <TableRow>
-                                    <TableHead className="text-left">Keyword</TableHead>
-                                    <TableHead className="text-left">Difficulty</TableHead>
-                                    <TableHead className="text-right">Monthly Search</TableHead>
-                                    <TableHead className="text-right">Competition Score</TableHead>
-                                    <TableHead className="text-right">Overall Score</TableHead>
-                                </TableRow>
-                            </TableHeader>
-                            <TableBody>
-                                {
-                                    [...exactKeyword, ...relatedKeywords].map((keyword, index) => (
-                                        <TableRow key={index}>
-                                            <TableCell className="">
-                                                {keyword?.keyword}
-                                            </TableCell>
-                                            <TableCell className="text-right">
-                                                {keyword?.difficulty}
-                                            </TableCell>
-                                            <TableCell className="text-right">
-                                                {formatLargeNumber(keyword?.monthlysearch)}
-                                            </TableCell>
-                                            <TableCell className="text-right">
-                                                {formatLargeNumber(keyword?.competition_score)}
-                                            </TableCell>
-                                            <TableCell className="text-right">
-                                                {formatLargeNumber(keyword?.overallscore)}
-                                            </TableCell>
-                                        </TableRow>
-                                    ))
-                                }
-                            </TableBody>
-                        </Table>
+                !isPending && dashboardData && (
+                    <div className="w-full flex flex-col gap-6">
+                        <KeywordResearchDashboard data={dashboardData} />
+                        <BuyMeCoffeeBanner className="mt-8" />
                     </div>
                 )
             }

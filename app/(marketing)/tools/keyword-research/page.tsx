@@ -3,22 +3,43 @@ import { Metadata } from "next";
 import { Separator } from "@/components/ui/separator";
 import { KeywordResearchForm } from "@/components/tools/keyword-research/keyword-research-form";
 import InArticleAds from "@/components/adsense/in-article-ads";
+import { generateToolMetadata, generateToolJsonLd } from "@/lib/seo";
 
-export const metadata: Metadata = {
-    title: "YouTube Keyword Research Tool - Find Top Keywords For Free",
-    description: "Discover the best keywords for your videos with our free YouTube Keyword Research Tool. Boost your reach and audience engagement",
-    keywords: ["Youtube keyword Research tool"],
-}
+export const metadata: Metadata = generateToolMetadata({
+    title: "Free YouTube Keyword Research Tool — Search Volume & Competition | TubeTool.ai",
+    description: "Discover high-volume, low-competition YouTube keywords for free. Analyze search volume, keyword scores, and audience interest to rank videos higher.",
+    keywords: [
+        "YouTube keyword research tool",
+        "free YouTube keyword tool",
+        "YouTube SEO keyword search",
+        "YouTube search volume tool",
+        "video keyword generator",
+        "YouTube tag search volume"
+    ],
+    slug: "keyword-research"
+});
 
 const KeywordResearchPage = () => {
+    const jsonLd = generateToolJsonLd({
+        name: "YouTube Keyword Research Tool",
+        description: "Discover high-volume, low-competition YouTube keywords for free. Analyze search volume, keyword scores, and audience interest to rank videos higher.",
+        slug: "keyword-research"
+    });
 
     return (
         <div className="w-full flex-1 flex flex-col flex-wrap h-full pr-0 md:pr-2">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
 
             <KeywordResearchForm />
 
             <div className="w-full flex flex-col mt-16 gap-8 pb-8 md:pb-16">
                 <div className="w-full flex flex-col gap-2">
+                    <h1 className="text-2xl sm:text-3xl font-bold text-left w-full bg-gradient-to-tr from-black/90 via-black/90 to-primary-foreground text-transparent bg-clip-text dark:from-primary-foreground dark:via-primary-foreground dark:to-dark">
+                        Free YouTube Keyword Research & Volume Analysis Tool
+                    </h1>
                     <p className="text-base text-justify font-normal text-secondary-foreground dark:text-gray-400">
                         Content creation battles in the YouTube competitive world is only half the battle, however. The real maneuvering involves ensuring that your content can reach the right audience. That&apos;s why effective keyword research is the real deal. As a YouTube creator looking to grow your channel, you need to know the keywords and topics that will resonate with your audience and rank on search results in order to drive traffic to your videos.
                     </p>

@@ -2,25 +2,12 @@ import { Metadata } from "next";
 import Link from "next/link";
 import {
   TrendingUp,
-  // BookImage,
-  // FilePenLine,
-  // FileSearch,
-  // ImageUp,
-  // Hash,
-  // Lightbulb,
-  // Tag,
-  // Text,
-  // TextSearch,
-  // Type,
-  // CirclePlay
+  Heart,
+  ArrowRight,
+  Sparkles
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-// import {
-//   HoverCard,
-//   HoverCardContent,
-//   HoverCardTrigger,
-// } from "@/components/ui/hover-card";
 import TimeSaverWidget from "@/components/home/TimeSaverWidget";
 import DiagnosticWidget from "@/components/home/DiagnosticWidget";
 import FutureChannelWidget from "@/components/home/FutureChannelWidget";
@@ -28,55 +15,56 @@ import Features from "@/components/home/Features";
 import HowItWorks from "@/components/home/HowItWorks";
 import Tools from "@/components/home/Tools";
 import Faq from "@/components/home/Faq";
+import { BuyMeCoffeeCard } from "@/components/buy-me-coffee-card";
 
 export const metadata: Metadata = {
-  title: "TubeTool - All-in-One Toolkit for YouTube Channel Growth",
-  description: "Want to grow on YouTube? TubeTool provides free tools that simplify keyword research, video optimization, and more. Start growing for free",
-  keywords: ["Tubetool.ai", "Tubetool"],
+  title: "TubeTool.ai - 100% Free AI Toolkit for YouTube Channel Growth",
+  description: "Stop paying $25-$50/month for TubeBuddy & VidIQ. TubeTool provides 100% free AI tools for keyword research, title generation, script writing, and video optimization.",
+  keywords: ["Tubetool.ai", "Tubetool free tools", "TubeBuddy free alternative", "VidIQ free alternative"],
 }
 
 export default function MarketingHome() {
   return (
     <div className="w-full flex flex-col flex-wrap h-full">
       <div className="w-full flex flex-col items-center space-y-2 pt-12">
-        <p className="w-fit h-fit flex items-center border rounded-full bg-card/50 dark:bg-card/0 text-xs px-2 py-1 font-medium mb-1">
-          <TrendingUp className="h-5 w-5 mr-1.5 px-1 py-0.5" />
-          Tested by 5k+ creators in beta
+        <p className="w-fit h-fit flex items-center border border-red-500/30 rounded-full bg-red-500/10 text-red-600 dark:text-red-400 text-xs px-3 py-1 font-bold mb-1">
+          <Heart className="h-3.5 w-3.5 mr-1.5 fill-current" />
+          100% Free Creator Movement • No $25/mo Paywalls
         </p>
-        <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-center md:w-2/3 bg-gradient-to-tr from-black/90 via-black/90 to-primary-foreground text-transparent bg-clip-text dark:from-primary-foreground dark:via-primary-foreground dark:to-dark pt-4 pb-2">
-          <span>All-in-One</span>
+        <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-center md:w-3/4 bg-gradient-to-tr from-black/90 via-black/90 to-primary-foreground text-transparent bg-clip-text dark:from-primary-foreground dark:via-primary-foreground dark:to-dark pt-4 pb-2 leading-tight">
+          <span>All-in-One Free</span>
           <br />
-          <span>YouTube Growth</span>
-          <br />
-          <span>Toolkit</span>
+          <span>YouTube Growth Toolkit</span>
         </h2>
-        <p className="md:w-2/3 text-center font-normal text-base text-secondary-foreground dark:text-gray-400 pt-2">
-          Unlock the full potential of your channel with “TubeTool” Your youtube journey growth partner. TubeTool is a one stop solution which enhances your content creation process, boosts engagement and increases your channel reach.
+        <p className="md:w-2/3 text-center font-normal text-base text-secondary-foreground dark:text-gray-300 pt-2 leading-relaxed">
+          Stop paying <strong className="text-foreground">$25–$50/month</strong> for basic tools. Tubetool.ai provides powerful AI keyword research, high-CTR title generators, thumbnail auditors, and script writers — completely <strong className="text-amber-500 font-bold">100% Free for all YouTubers</strong>.
         </p>
-        <div className="w-full flex items-center justify-center space-x-2 pt-5">
-          <Button variant="default" size="default" className="transition-all duration-200 transform hover:scale-105 flex items-center gap-2">
-            <Link href="/tools/title-generator">
-              Try TubeTool
+        <div className="w-full flex flex-col sm:flex-row items-center justify-center gap-3 pt-5">
+          <Button variant="default" size="lg" className="bg-red-600 hover:bg-red-700 text-white font-bold text-sm px-6 py-3 rounded-xl shadow-lg transition-all duration-200 transform hover:scale-105 flex items-center gap-2">
+            <Link href="/tools/title-generator" className="flex items-center gap-2">
+              <span>Explore Free Tools</span>
+              <ArrowRight className="w-4 h-4" />
             </Link>
           </Button>
-          <Button variant="link" size="default" className="text-black dark:text-white">
-            <Link href="#how-it-works">
-              Learn more
+          <Button variant="outline" size="lg" className="border-amber-500/30 text-amber-600 dark:text-amber-400 hover:bg-amber-500/10 font-bold text-sm px-6 py-3 rounded-xl">
+            <Link href="/our-mission" className="flex items-center gap-2">
+              <Sparkles className="w-4 h-4 text-amber-500" />
+              <span>Our Mission & Goal Details →</span>
             </Link>
           </Button>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-2xl mx-auto pt-16">
           <div className="text-center">
-            <div className="text-3xl font-bold bg-gradient-to-tr from-black/90 via-black/90 to-primary-foreground text-transparent bg-clip-text dark:from-primary-foreground dark:via-primary-foreground dark:to-dark mb-1">1500+</div>
-            <div className="dark:text-gray-400">Signups in 7 days</div>
+            <div className="text-3xl font-bold bg-gradient-to-tr from-black/90 via-black/90 to-primary-foreground text-transparent bg-clip-text dark:from-primary-foreground dark:via-primary-foreground dark:to-dark mb-1">5000+</div>
+            <div className="dark:text-gray-400">Creators Empowered</div>
+          </div>
+          <div className="text-center">
+            <div className="text-3xl font-bold text-emerald-500 mb-1">$0</div>
+            <div className="dark:text-gray-400 font-medium">Free Forever (No Paywalls)</div>
           </div>
           <div className="text-center">
             <div className="text-3xl font-bold bg-gradient-to-tr from-black/90 via-black/90 to-primary-foreground text-transparent bg-clip-text dark:from-primary-foreground dark:via-primary-foreground dark:to-dark mb-1">15+</div>
-            <div className="dark:text-gray-400">Powerful Tools</div>
-          </div>
-          <div className="text-center">
-            <div className="text-3xl font-bold bg-gradient-to-tr from-black/90 via-black/90 to-primary-foreground text-transparent bg-clip-text dark:from-primary-foreground dark:via-primary-foreground dark:to-dark mb-1">24/7</div>
-            <div className="dark:text-gray-400">AI Support</div>
+            <div className="dark:text-gray-400">AI Creator Tools</div>
           </div>
         </div>
       </div>
@@ -92,6 +80,11 @@ export default function MarketingHome() {
       <HowItWorks />
 
       <Tools />
+
+      {/* COMMUNITY MISSION & COFFEE CARD */}
+      <div className="w-full px-4">
+        <BuyMeCoffeeCard />
+      </div>
 
       <Faq />
 

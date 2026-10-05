@@ -753,6 +753,12 @@ export const TOOLS = [
     },
 
     {
+        label: "Thumbnail Generator",
+        value: "thumbnail-generator",
+        icon: BookImage,
+        description: "Thumbnail generator helps you design high-CTR thumbnails with AI-driven concepts, visual layouts, and Midjourney prompts."
+    },
+    {
         label: "Thumbnail Quality Checker",
         value: "thumbnail-quality-checker",
         icon: ImageUp,
@@ -763,6 +769,12 @@ export const TOOLS = [
         value: "thumbnail-guide",
         icon: BookImage,
         description: "Thumbnail guide is a tool that will analyze your thumbnail Seo and tell you whether it is ready for publication or not by suggesting the needed edits."
+    },
+    {
+        label: "GO / NO-GO Predictor",
+        value: "go-no-go-predictor",
+        icon: FileSearch,
+        description: "Get data-backed prediction on whether your YouTube video idea will work or not with AI-powered recommendations."
     },
     {
         label: "Topic Ideas",

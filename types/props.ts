@@ -91,6 +91,16 @@ export type onGenerateTitle = {
     isRealtime?: boolean;
 }
 
+export type onGenerateTag = {
+    primaryKeywords: string;
+    targetAudience?: string;
+    category: string;
+    language: string;
+    focusType?: string;
+    competitorChannels?: string;
+    includeMisspellings?: boolean;
+}
+
 export type VideoTableProps = {
     showSelectDropdown: boolean;
     toolName: string;

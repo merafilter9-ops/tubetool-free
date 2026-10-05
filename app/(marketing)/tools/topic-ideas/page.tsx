@@ -3,22 +3,43 @@ import { Metadata } from "next";
 import { Separator } from "@/components/ui/separator";
 import { TopicIdeasForm } from "@/components/tools/topic-ideas/topic-ideas-form";
 import InArticleAds from "@/components/adsense/in-article-ads";
+import { generateToolMetadata, generateToolJsonLd } from "@/lib/seo";
 
-export const metadata: Metadata = {
-    title: "Free YouTube Video Ideas Tool - Discover New Video Topics",
-    description: "Find unique, data-driven video ideas with our free YouTube Video Ideas Tool. Keep your content fresh and relevant. Try it out",
-    keywords: ["Youtube video ideas tool"],
-}
+export const metadata: Metadata = generateToolMetadata({
+    title: "Free YouTube Topic & Video Ideas Generator AI Tool | TubeTool.ai",
+    description: "Discover high-demand, viral YouTube video ideas instantly with our free AI YouTube Topic Generator. Get niche-specific content ideas tailored for audience growth.",
+    keywords: [
+        "YouTube video ideas tool",
+        "free YouTube topic generator",
+        "viral video ideas generator",
+        "YouTube content ideas",
+        "video concept finder",
+        "YouTube channel ideas"
+    ],
+    slug: "topic-ideas"
+});
 
 const TopicIdeaPage = () => {
+    const jsonLd = generateToolJsonLd({
+        name: "YouTube Topic & Video Ideas Generator",
+        description: "Discover high-demand, viral YouTube video ideas instantly with our free AI YouTube Topic Generator. Get niche-specific content ideas tailored for audience growth.",
+        slug: "topic-ideas"
+    });
 
     return (
         <div className="w-full flex-1 flex flex-col flex-wrap h-full pr-0 md:pr-2">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
 
             <TopicIdeasForm />
 
             <div className="w-full flex flex-col mt-16 gap-8 pb-8 md:pb-16">
                 <div className="w-full flex flex-col gap-2">
+                    <h1 className="text-2xl sm:text-3xl font-bold text-left w-full bg-gradient-to-tr from-black/90 via-black/90 to-primary-foreground text-transparent bg-clip-text dark:from-primary-foreground dark:via-primary-foreground dark:to-dark">
+                        Free YouTube Video Topic Ideas Generator AI Tool
+                    </h1>
                     <p className="text-base text-justify font-normal text-secondary-foreground dark:text-gray-400">
                         Being a YouTube content creator, one of the greatest challenges you&apos;ll face is coming up with fresh ideas, relevant, and engaging for your videos. You will need to be creative but also strategically calculate the right kind of content in order to engage the audience while staying ahead in competition. That&apos;s where our YouTube Topic Ideas Tool comes into play to save the day. This powerful tool analyses your competitors&apos; videos, your past video performance, audience interests, and your channel category to present to you a data-driven list of topic recommendations that will be tailored specifically to your channel.
                     </p>

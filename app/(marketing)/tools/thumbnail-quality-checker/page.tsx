@@ -3,22 +3,43 @@ import { Metadata } from "next";
 import { Separator } from "@/components/ui/separator";
 import { ThumbnailQualityCheckerForm } from "@/components/tools/thumbnail-quality-checker/thumbnail-quality-checker-form";
 import InArticleAds from "@/components/adsense/in-article-ads";
+import { generateToolMetadata, generateToolJsonLd } from "@/lib/seo";
 
-export const metadata: Metadata = {
-    title: "Free YouTube Thumbnail Analyzer - Get High CTR Insights",
-    description: "Analyze your thumbnails for clarity, color, and more with our free Thumbnail Analyzer. Improve your click-through rate today",
-    keywords: ["Thumbnail analyzer", "YouTube thumbnail quality checker"],
-}
+export const metadata: Metadata = generateToolMetadata({
+    title: "Free YouTube Thumbnail Quality & CTR Analyzer Tool | TubeTool.ai",
+    description: "Analyze your YouTube thumbnails for clarity, text legibility, color contrast, and CTR potential with our free AI Thumbnail Quality Checker.",
+    keywords: [
+        "YouTube thumbnail quality checker",
+        "thumbnail analyzer",
+        "thumbnail CTR tester",
+        "YouTube thumbnail rating tool",
+        "free thumbnail checker",
+        "YouTube click through rate tool"
+    ],
+    slug: "thumbnail-quality-checker"
+});
 
 const ThumbnailQualityCheckerPage = () => {
+    const jsonLd = generateToolJsonLd({
+        name: "YouTube Thumbnail Quality Checker",
+        description: "Analyze your YouTube thumbnails for clarity, text legibility, color contrast, and CTR potential with our free AI Thumbnail Quality Checker.",
+        slug: "thumbnail-quality-checker"
+    });
 
     return (
         <div className="w-full flex-1 flex flex-col flex-wrap h-full pr-0 md:pr-2">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
 
             <ThumbnailQualityCheckerForm />
 
             <div className="w-full flex flex-col mt-16 gap-8 pb-8 md:pb-16">
                 <div className="w-full flex flex-col gap-2">
+                    <h1 className="text-2xl sm:text-3xl font-bold text-left w-full bg-gradient-to-tr from-black/90 via-black/90 to-primary-foreground text-transparent bg-clip-text dark:from-primary-foreground dark:via-primary-foreground dark:to-dark">
+                        Free YouTube Thumbnail Quality & CTR Analyzer AI Tool
+                    </h1>
                     <p className="text-base text-justify font-normal text-secondary-foreground dark:text-gray-400">
                         Creating viral YouTube content is half the battle, of course. But to attract viewers, your video thumbnail needs to be pretty attractive as well. A well-designed thumbnail is one of the most critical elements in deciding whether a potential viewer clicks on your video or scrolls past it. Well, all that aside, first impressions do count, don&apos;t they? But how do you know that the thumbnail you&apos;re working on is optimized for high CTRs?
                     </p>

@@ -22,7 +22,6 @@ import {
 
 import { ALL_LANGUAGES_LIST, VIDEO_CATEGORIES } from "@/constants";
 import { onGenerateTitle } from "@/types/props";
-import { usePlanType } from "@/hooks/use-current-user";
 
 interface InputFormProps {
     onGenerate: (data: onGenerateTitle) => void;
@@ -45,7 +44,6 @@ const InputFormTitle: React.FC<InputFormProps> = ({ onGenerate, title, realtime,
     const [isRealtime, setIsRealtime] = useState<boolean>(false);
     const [includeAdvancedOptions, setIncludeAdvancedOptions] = useState<boolean>(false);
 
-    const planType = usePlanType();
 
     const resetInputs = () => {
         setPrimaryKeywords("");
@@ -177,7 +175,6 @@ const InputFormTitle: React.FC<InputFormProps> = ({ onGenerate, title, realtime,
                             id="include-advanced-options"
                             checked={includeAdvancedOptions}
                             onCheckedChange={setIncludeAdvancedOptions}
-                            disabled={!planType || planType === "free"}
                         />
                         <Label htmlFor="include-advanced-options">Advanced Options</Label>
                     </div>

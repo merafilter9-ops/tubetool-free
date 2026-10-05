@@ -52,17 +52,17 @@ const features: PlanFeature[] = [
 
 const plans = [
   {
-    name: 'Tubetool',
+    name: 'Tubetool.ai',
     icon: <Play className="w-6 h-6" />,
-    color: 'from-primary-500 to-primary-700',
-    borderColor: 'border-primary-500',
-    textColor: 'text-primary-400',
-    price: '$29',
-    period: '/month',
-    description: 'The ultimate YouTube growth platform',
+    color: 'from-emerald-500 to-teal-700',
+    borderColor: 'border-emerald-500',
+    textColor: 'text-emerald-400',
+    price: '$0',
+    period: 'Free Forever',
+    description: '100% Free YouTube growth suite',
     features: features,
-    badge: 'Most Popular',
-    badgeColor: 'bg-primary-500'
+    badge: '100% Free Forever',
+    badgeColor: 'bg-emerald-500'
   },
   {
     name: 'VidIQ',
@@ -173,19 +173,19 @@ export default function PlanComparisonWidget() {
 
               {/* Key Advantages */}
               <div className="space-y-3 mb-6">
-                {plan.name === 'Tubetool' && (
+                {plan.name.includes('Tubetool') && (
                   <>
-                    <div className="flex items-center gap-2 text-green-400">
+                    <div className="flex items-center gap-2 text-emerald-400">
                       <Check className="w-4 h-4" />
-                      <span className="text-sm">AI-Powered Insights</span>
+                      <span className="text-sm">100% Free - No Paywalls</span>
                     </div>
-                    <div className="flex items-center gap-2 text-green-400">
+                    <div className="flex items-center gap-2 text-emerald-400">
                       <Check className="w-4 h-4" />
-                      <span className="text-sm">Unlimited Features</span>
+                      <span className="text-sm">AI-Powered Growth Tools</span>
                     </div>
-                    <div className="flex items-center gap-2 text-green-400">
+                    <div className="flex items-center gap-2 text-emerald-400">
                       <Check className="w-4 h-4" />
-                      <span className="text-sm">24/7 Priority Support</span>
+                      <span className="text-sm">No Credit Card Required</span>
                     </div>
                   </>
                 )}
@@ -201,7 +201,7 @@ export default function PlanComparisonWidget() {
                     </div>
                     <div className="flex items-center gap-2 text-red-400">
                       <X className="w-4 h-4" />
-                      <span className="text-sm">Standard Support</span>
+                      <span className="text-sm">$39/mo Paywall</span>
                     </div>
                   </>
                 )}
@@ -213,21 +213,21 @@ export default function PlanComparisonWidget() {
                     </div>
                     <div className="flex items-center gap-2 text-red-400">
                       <X className="w-4 h-4" />
-                      <span className="text-sm">No AI Features</span>
+                      <span className="text-sm">No Advanced AI</span>
                     </div>
                     <div className="flex items-center gap-2 text-red-400">
                       <X className="w-4 h-4" />
-                      <span className="text-sm">Email Support Only</span>
+                      <span className="text-sm">$49/mo Paywall</span>
                     </div>
                   </>
                 )}
               </div>
 
-              <button className={`w-full py-3 px-6 rounded-lg font-semibold transition-all ${plan.name === 'Tubetool'
-                ? 'bg-gradient-to-r from-primary-500 to-primary-700 text-white hover:from-primary-600 hover:to-primary-800'
+              <button className={`w-full py-3 px-6 rounded-lg font-semibold transition-all ${plan.name.includes('Tubetool')
+                ? 'bg-gradient-to-r from-emerald-500 to-teal-600 text-white hover:from-emerald-600 hover:to-teal-700'
                 : 'bg-dark-700 text-dark-300 border border-dark-600 hover:bg-dark-600'
                 }`}>
-                {plan.name === 'Tubetool' ? 'Start Free Trial' : 'Learn More'}
+                {plan.name.includes('Tubetool') ? 'Use All Tools Free →' : 'Compare Plan'}
               </button>
             </motion.div>
           ))}

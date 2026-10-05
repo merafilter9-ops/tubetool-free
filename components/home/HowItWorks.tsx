@@ -14,8 +14,8 @@ import Link from 'next/link'
 const steps = [
   {
     icon: UserPlus,
-    title: "Sign Up Free",
-    description: "Create your account in seconds and get instant access to all tools.",
+    title: "Explore Tools",
+    description: "Browse our suite of 100% free creator tools with instant access — no credit card needed.",
     step: "01"
   },
   {
@@ -114,12 +114,9 @@ export default function HowItWorks() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/tools/title-generator" className="p-0 m-0">
                 <Button className="transition-all duration-200 transform hover:scale-105">
-                  Start Free Trial
+                  Start Using Free Tools →
                 </Button>
               </Link>
-              {/* <Button className="transition-all duration-200 transform hover:scale-105" variant="outline">
-                Watch Demo
-              </Button> */}
             </div>
           </div>
         </motion.div>

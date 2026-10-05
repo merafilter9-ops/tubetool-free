@@ -14,6 +14,7 @@ import { Switch } from "@/components/ui/switch";
 import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
 import { UpgradeButtonWrapper } from "@/components/upgrade-button-wrapper";
+import { BuyMeCoffeeBanner } from "@/components/buy-me-coffee-banner";
 import {
     Select,
     SelectContent,
@@ -27,12 +28,12 @@ import { cn } from "@/lib/utils";
 import { useAppDispatch, useAppSelector } from "@/hooks/use-redux";
 import { setChannelVideosList } from "@/store/channel/channelSlice";
 import { ChannelVideo } from "@/types/channel";
-import { useCurrentUser, usePlanType } from "@/hooks/use-current-user";
+import { useCurrentUser } from "@/hooks/use-current-user";
 
 export const DescriptionGeneratorForm = () => {
     const dispatch = useAppDispatch();
     const user = useCurrentUser();
-    const planType = usePlanType();
+
     const { channelVideosList, currentChannel } = useAppSelector((state) => state.channel);
     const [isPending, startTransition] = useTransition();
     const [result, setResult] = useState<string>('');
@@ -204,7 +205,7 @@ export const DescriptionGeneratorForm = () => {
                                     onChange={(e) => setPlatform(e.target.value)}
                                     placeholder="eg Twitter, Instagram, etc."
                                     list="platforms"
-                                    disabled={!planType || planType === "free"}
+
                                 />
                                 <datalist id="platforms">
                                     <option value="Twitter" />
@@ -225,11 +226,11 @@ export const DescriptionGeneratorForm = () => {
                                     value={socialLink}
                                     onChange={(e) => setSocialLink(e.target.value)}
                                     placeholder="Enter your link"
-                                    disabled={!planType || planType === "free"}
+
                                 />
                             </div>
                             <div className="w-fit">
-                                <Button onClick={addSocialLinks} disabled={!planType || planType === "free"}>Add</Button>
+                                <Button onClick={addSocialLinks}>Add</Button>
                             </div>
                         </div>
                         <div className="space-y-2">
@@ -242,7 +243,7 @@ export const DescriptionGeneratorForm = () => {
                                             size="icon"
                                             variant="ghost"
                                             className="p-1 h-6 w-6"
-                                            disabled={!planType || planType === "free"}
+        
                                         >
                                             <Trash className="w-1.5 h-1.5 text-primary" />
                                         </Button>
@@ -258,7 +259,6 @@ export const DescriptionGeneratorForm = () => {
                                 value={affiliateLink}
                                 onChange={(e) => setAffiliateLink(e.target.value)}
                                 placeholder="Enter your affiliate link"
-                                disabled={!planType || planType === "free"}
                             />
                         </div>
                         <div className="w-full grid grid-cols-12 gap-2">
@@ -267,7 +267,7 @@ export const DescriptionGeneratorForm = () => {
                                 <Select
                                     value={selectedVideoTitle}
                                     onValueChange={(value) => setSelectedVideoTitle(value)}
-                                    disabled={!planType || planType === "free"}
+
                                 >
                                     <SelectTrigger id="video-link">
                                         <SelectValue placeholder="Select a video link" />
@@ -285,7 +285,7 @@ export const DescriptionGeneratorForm = () => {
                             <div className="w-full flex items-end justify-end col-span-2">
                                 <Button
                                     onClick={addVideoLink}
-                                    disabled={selectedVideoTitle === "tubetool_none_value" || selectedVideoTitle === "" || !planType || planType === "free"}
+                                    disabled={selectedVideoTitle === "tubetool_none_value" || selectedVideoTitle === ""}
                                 >
                                     Add
                                 </Button>
@@ -306,7 +306,7 @@ export const DescriptionGeneratorForm = () => {
                                                     size="icon"
                                                     variant="ghost"
                                                     className="p-1 h-6 w-6"
-                                                    disabled={!planType || planType === "free"}
+                
                                                 >
                                                     <Trash className="w-1.5 h-1.5 text-primary" />
                                                 </Button>
@@ -325,7 +325,6 @@ export const DescriptionGeneratorForm = () => {
                                 onChange={(e) => setBusinessInfo(e.target.value)}
                                 placeholder="Enter your business information"
                                 rows={4}
-                                disabled={!planType || planType === "free"}
                             />
                         </div>
                         <Separator className="mt-3.5" />
@@ -334,7 +333,6 @@ export const DescriptionGeneratorForm = () => {
                                 id="include-timestamps"
                                 checked={includeTimestamps}
                                 onCheckedChange={setIncludeTimestamps}
-                                disabled={!planType || planType === "free"}
                             />
                             <Label htmlFor="include-timestamps">Include Timestamps</Label>
                         </div>
@@ -362,13 +360,13 @@ export const DescriptionGeneratorForm = () => {
                                         </Button>
                                     </div>
                                 ))}
-                                <Button onClick={addTimestamp} disabled={!planType || planType === "free"}>Add Timestamp</Button>
+                                <Button onClick={addTimestamp}>Add Timestamp</Button>
                             </div>
                         )}
                         <Separator className="mt-3.5" />
                         <div>
                             <Label htmlFor="section-separator">Section Separator</Label>
-                            <Select value={sectionSeparator} onValueChange={setSectionSeparator} disabled={!planType || planType === "free"}>
+                            <Select value={sectionSeparator} onValueChange={setSectionSeparator}>
                                 <SelectTrigger id="section-separator">
                                     <SelectValue placeholder="Select a separator" />
                                 </SelectTrigger>
@@ -403,6 +401,10 @@ export const DescriptionGeneratorForm = () => {
                     )}>
                         {generateDescription()}
                     </pre>
+
+                    {result && (
+                        <BuyMeCoffeeBanner className="mt-6" />
+                    )}
                 </div>
             </div >
 

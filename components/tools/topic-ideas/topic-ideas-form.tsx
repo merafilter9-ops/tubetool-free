@@ -7,6 +7,7 @@ import confetti from 'canvas-confetti';
 
 import { Tooltip } from "@/components/custom-tooltip";
 import { Skeleton } from "@/components/ui/skeleton";
+import { BuyMeCoffeeBanner } from "@/components/buy-me-coffee-banner";
 
 import API_URL_V1 from "@/lib/axios-config";
 import { copyToClipboard } from "@/lib/utils";
@@ -126,6 +127,8 @@ export const TopicIdeasForm = () => {
                                 }
                             </div>
                         </div>
+
+                        <BuyMeCoffeeBanner className="mt-8" />
                     </div>
                 )
             }

@@ -28,8 +28,8 @@ const testimonials = [
 ]
 
 const stats = [
-  { number: "500+", label: "Creators in Beta", isGrowth: true },
-  { number: "660", label: "Signups in 7 Days", isGrowth: true },
+  { number: "5000+", label: "Active Creators", isGrowth: true },
+  { number: "100%", label: "Free Forever", isGrowth: true },
   { number: "15+", label: "Powerful Tools" },
   { number: "4.9/5", label: "User Rating", isSuccess: true }
 ]

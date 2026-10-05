@@ -31,6 +31,12 @@ const tools = [
   },
   {
     icon: Image,
+    title: "Thumbnail Generator",
+    description: "Design high-CTR thumbnails with AI-driven concepts and Midjourney prompts.",
+    category: "Creation"
+  },
+  {
+    icon: Image,
     title: "Thumbnail Checker",
     description: "Analyze and optimize your thumbnails for maximum click-through rates.",
     category: "Optimization"
@@ -64,6 +70,12 @@ const tools = [
     title: "Churn Shield",
     description: "Predict and prevent subscriber churn with advanced analytics.",
     category: "Retention"
+  },
+  {
+    icon: Search,
+    title: "GO / NO-GO Predictor",
+    description: "Get data-backed prediction on whether your YouTube video idea will work or not.",
+    category: "Planning"
   },
   {
     icon: Lightbulb,
@@ -138,7 +150,7 @@ export default function Tools() {
         >
           <Link href="/tools/title-generator" className="p-0 m-0">
             <Button className="transition-all duration-200 transform hover:scale-105">
-              Signin to use all 15+ Tools for Free
+              Explore All 15+ Free Tools →
             </Button>
           </Link>
         </motion.div>

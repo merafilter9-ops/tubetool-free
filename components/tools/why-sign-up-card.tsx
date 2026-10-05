@@ -1,45 +1,42 @@
 'use client';
 
 import Link from "next/link";
-import { ArrowRight, WandSparkles } from "lucide-react";
-
+import { Coffee, ArrowRight, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-import { useCurrentUser } from "@/hooks/use-current-user";
-
 const WhySignUpCard = () => {
-
-    const user = useCurrentUser();
-
-    if (user) return null;
-
     return (
-        <div className="relative group cursor-pointer">
-            <div className="absolute inset-0 bg-gradient-to-r from-red-600 to-violet-600 rounded-xl blur opacity-15 group-hover:opacity-25 transition duration-1000 group-hover:duration-200">
-            </div>
-            <div className="relative flex items-center rounded-xl justify-center bg-background">
-                <div className="w-full flex flex-col space-y-1.5 shadow dark:shadow-xl bg-background rounded-md p-3 border">
-                    <WandSparkles className="w-4 h-4 text-gray-700 dark:text-gray-500" />
-
-                    <div className="w-full text-lg font-semibold">
-                        More features? Sign up for free!
-                    </div>
-
-                    <p className="w-full text-sm font-normal mt-0 text-gray-500 dark:text-gray-400">
-                        Want to access more free features and tools on TubeTool? Sign up for free and get access your own AI powered dashboard.
-                    </p>
-
-                    <Link href="/tools/title-generator">
-                        <Button className="w-full">
-                            <span>Sign up</span>
-                            <ArrowRight className="w-4 h-4 ml-2" />
-                        </Button>
-                    </Link>
+        <div className="relative group overflow-hidden rounded-2xl border border-amber-500/30 bg-gradient-to-br from-amber-500/10 via-card to-amber-950/10 p-4 shadow-sm">
+            <div className="flex flex-col gap-2.5">
+                <div className="flex items-center justify-between">
+                    <span className="text-[10px] font-bold text-amber-500 bg-amber-500/10 border border-amber-500/20 px-2 py-0.5 rounded-full flex items-center gap-1">
+                        <Coffee className="w-3 h-3 text-red-500" /> Community Supported
+                    </span>
+                    <span className="text-[10px] font-bold text-emerald-500 flex items-center gap-1">
+                        <Sparkles className="w-3 h-3" /> 100% Free
+                    </span>
                 </div>
+
+                <h4 className="text-sm font-bold text-foreground leading-tight">
+                    Keep TubeTool 100% Free Forever ☕
+                </h4>
+
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                    Instead of charging $25-$50/mo like TubeBuddy & VidIQ, we build free tools for creators funded by voluntary community contributions.
+                </p>
+
+                <Link 
+                    href="/our-mission" 
+                    className="w-full pt-1"
+                >
+                    <Button size="sm" className="w-full bg-gradient-to-r from-red-500 via-amber-500 to-amber-600 hover:from-red-600 hover:to-amber-500 text-white font-bold text-xs h-8 gap-1.5 shadow group">
+                        <span>Support Our Mission</span>
+                        <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
+                    </Button>
+                </Link>
             </div>
         </div>
-
-    )
+    );
 };
 
 export default WhySignUpCard;

@@ -3,21 +3,43 @@ import { Metadata } from "next";
 import { Separator } from "@/components/ui/separator";
 import { HashtagGeneratorForm } from "@/components/tools/hashtag-generator/hashtag-generator";
 import InArticleAds from "@/components/adsense/in-article-ads";
+import { generateToolMetadata, generateToolJsonLd } from "@/lib/seo";
 
-export const metadata: Metadata = {
-    title: "YouTube Hashtag Generator - Find Trending Hashtags",
-    description: "Boost your reach with relevant hashtags using our free YouTube Hashtag Generator. Discover trending tags for your videos now",
-    keywords: ["Youtube Hashtag generator"]
-}
+export const metadata: Metadata = generateToolMetadata({
+    title: "Free YouTube Hashtag Generator AI Tool — Find Trending Hashtags | TubeTool.ai",
+    description: "Boost video discoverability and reach with our free AI YouTube Hashtag Generator. Generate trending, SEO-optimized hashtags for your YouTube videos in seconds.",
+    keywords: [
+        "YouTube hashtag generator",
+        "free YouTube hashtag generator",
+        "trending hashtags for YouTube",
+        "YouTube hashtag finder",
+        "video hashtag optimizer",
+        "YouTube SEO hashtags"
+    ],
+    slug: "hashtag-generator"
+});
 
 const HashtagGeneratorPage = () => {
+    const jsonLd = generateToolJsonLd({
+        name: "YouTube Hashtag Generator",
+        description: "Boost video discoverability and reach with our free AI YouTube Hashtag Generator. Generate trending, SEO-optimized hashtags for your YouTube videos in seconds.",
+        slug: "hashtag-generator"
+    });
+
     return (
         <div className="w-full flex-1 flex flex-col flex-wrap h-full pr-0 md:pr-2">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
 
             <HashtagGeneratorForm />
 
             <div className="w-full flex flex-col mt-16 gap-8 pb-8 md:pb-16">
                 <div className="w-full flex flex-col gap-2">
+                    <h1 className="text-2xl sm:text-3xl font-bold text-left w-full bg-gradient-to-tr from-black/90 via-black/90 to-primary-foreground text-transparent bg-clip-text dark:from-primary-foreground dark:via-primary-foreground dark:to-dark">
+                        Free YouTube Hashtag Generator AI Tool
+                    </h1>
                     <p className="text-base text-justify font-normal text-secondary-foreground dark:text-gray-400">
                         One of the things you so desperately hope for, being a YouTuber, is for your videos to reach as many eyeballs as possible. However, how great your videos are also doesn&apos;t matter if people can&apos;t find them. Highly underutilized in terms of video visibility is the use of YouTube hashtags. Those small yet potent SEO tools can really catapult your video to a larger reach.
                     </p>
