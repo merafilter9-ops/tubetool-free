@@ -13,9 +13,9 @@ export function generateToolMetadata({
     description,
     keywords,
     slug,
-    ogImage = "https://tubetool.ai/brand/logo.png"
+    ogImage = "https://www.tubetool.ai/brand/logo.png"
 }: SEOProps): Metadata {
-    const url = `https://tubetool.ai/tools/${slug}`;
+    const url = `https://www.tubetool.ai/tools/${slug}`;
 
     return {
         title,
@@ -81,7 +81,7 @@ export function generateToolJsonLd({
         "@context": "https://schema.org",
         "@type": "WebApplication",
         "name": `${name} — TubeTool.ai`,
-        "url": `https://tubetool.ai/tools/${slug}`,
+        "url": `https://www.tubetool.ai/tools/${slug}`,
         "applicationCategory": "MultimediaApplication",
         "operatingSystem": "All Web Browsers",
         "browserRequirements": "Requires JavaScript. Requires HTML5.",
@@ -96,7 +96,7 @@ export function generateToolJsonLd({
         "author": {
             "@type": "Organization",
             "name": "TubeTool.ai",
-            "url": "https://tubetool.ai"
+            "url": "https://www.tubetool.ai"
         }
     };
 }

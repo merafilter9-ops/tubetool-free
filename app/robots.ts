@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
             userAgent: '*',
             disallow: '',
         },
-        sitemap: 'https://tubetool.ai/sitemap.xml',
+        sitemap: 'https://www.tubetool.ai/sitemap.xml',
     }
 }
