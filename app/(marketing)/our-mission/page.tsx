@@ -32,7 +32,7 @@ export default function OurMissionPage() {
     const COFFEE_URL = BUY_ME_A_COFFEE_URL;
 
     return (
-        <div className="w-full max-w-6xl mx-auto py-6 px-3 sm:px-6 flex flex-col gap-12 text-foreground">
+        <div className="w-full flex-1 flex flex-col h-full pr-0 md:pr-2 gap-8 sm:gap-12 text-foreground">
             
             {/* 1. HERO SECTION */}
             <div className="relative overflow-hidden rounded-3xl border border-red-500/20 bg-gradient-to-br from-card via-card to-red-500/5 p-6 sm:p-10 shadow-2xl backdrop-blur-xl">
