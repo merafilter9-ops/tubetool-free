@@ -9,22 +9,14 @@ import {
     TrendingDown, 
     BarChart3, 
     Users, 
-    Zap, 
     Check, 
     X, 
-    Search, 
     Globe, 
-    Flame, 
-    Eye, 
     Target, 
     Sparkles, 
     Copy, 
-    CheckCircle, 
-    Lightbulb, 
     Award,
-    Compass,
-    Layers,
-    Shield
+    Compass
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -514,7 +506,7 @@ export const GoNoGoDashboard = ({ data }: GoNoGoDashboardProps) => {
                                         <span>{copiedTitle ? "Copied!" : "Copy"}</span>
                                     </button>
                                 </div>
-                                <p className="text-xs font-bold text-foreground">"{videoStrategy?.suggestedTitle}"</p>
+                                <p className="text-xs font-bold text-foreground">&quot;{videoStrategy?.suggestedTitle}&quot;</p>
                             </div>
 
                             <div className="text-xs">
@@ -531,7 +523,7 @@ export const GoNoGoDashboard = ({ data }: GoNoGoDashboardProps) => {
                         <div className="grid grid-cols-2 gap-3">
                             <div className="p-3 rounded-xl border bg-card">
                                 <h5 className="text-xs font-bold text-emerald-500 mb-2 flex items-center gap-1">
-                                    <Check className="w-3.5 h-3.5" /> Do's
+                                    <Check className="w-3.5 h-3.5" /> Do&apos;s
                                 </h5>
                                 <ul className="space-y-1 text-xs text-muted-foreground">
                                     {dosAndDonts?.dos?.map((item: string, i: number) => (
@@ -545,7 +537,7 @@ export const GoNoGoDashboard = ({ data }: GoNoGoDashboardProps) => {
 
                             <div className="p-3 rounded-xl border bg-card">
                                 <h5 className="text-xs font-bold text-rose-500 mb-2 flex items-center gap-1">
-                                    <X className="w-3.5 h-3.5" /> Don'ts
+                                    <X className="w-3.5 h-3.5" /> Don&apos;ts
                                 </h5>
                                 <ul className="space-y-1 text-xs text-muted-foreground">
                                     {dosAndDonts?.donts?.map((item: string, i: number) => (

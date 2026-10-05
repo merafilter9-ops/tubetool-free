@@ -16,18 +16,11 @@ import {
     Film, 
     Volume2, 
     Crown, 
-    Lightbulb, 
-    FileText, 
     TrendingUp, 
-    Users, 
     DollarSign, 
     Compass, 
-    Award,
-    Tag,
-    Hash,
-    HelpCircle
+    Tag
 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 
 type CategoryId = 'all' | 'titling' | 'production' | 'analytics' | 'seo' | 'algorithm' | 'monetization';
 

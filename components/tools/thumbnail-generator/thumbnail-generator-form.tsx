@@ -189,7 +189,7 @@ export const ThumbnailGeneratorForm = () => {
                                                 Text Overlay
                                             </span>
                                             <h4 className="text-lg sm:text-xl font-black uppercase text-white tracking-tight leading-none drop-shadow-md bg-black/60 backdrop-blur-sm py-1.5 px-3 rounded-lg border border-white/10 inline-block max-w-full truncate">
-                                                "{concept.overlayText || 'CLICK HERE'}"
+                                                &quot;{concept.overlayText || 'CLICK HERE'}&quot;
                                             </h4>
                                         </div>
 
@@ -245,7 +245,7 @@ export const ThumbnailGeneratorForm = () => {
                                             <div>
                                                 <span className="font-bold text-foreground block text-[11px]">Overlay Text (High Impact):</span>
                                                 <span className="font-extrabold text-foreground bg-amber-500/10 border border-amber-500/20 px-2 py-0.5 rounded text-xs inline-block mt-0.5">
-                                                    "{concept.overlayText}"
+                                                    &quot;{concept.overlayText}&quot;
                                                 </span>
                                             </div>
                                         </div>

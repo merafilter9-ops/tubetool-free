@@ -1,4 +1,4 @@
-import { LucideIcon, TrendingUp, TrendingDown, Minus, PlayCircle, BarChart3, Target, PieChart, Users, AlertTriangle, Lightbulb, UserX, UserPlus, Play, Shield, DollarSign, Clock, Calendar } from 'lucide-react';
+import { TrendingUp, TrendingDown, Minus, PlayCircle, BarChart3, Target, PieChart, Users, AlertTriangle, Lightbulb, UserX, UserPlus, Play, Shield, DollarSign, Clock, Calendar } from 'lucide-react';
 
 export const KeywordResearchDashboard = ({ data }: { data: any }) => {
 

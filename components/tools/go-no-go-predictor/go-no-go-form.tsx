@@ -15,12 +15,10 @@ import {
     Link2, 
     ChevronDown, 
     ChevronUp, 
-    RotateCcw, 
     ArrowRight, 
     Flame, 
     X,
-    Loader2,
-    Compass
+    Loader2
 } from "lucide-react";
 
 import { Skeleton } from "@/components/ui/skeleton";

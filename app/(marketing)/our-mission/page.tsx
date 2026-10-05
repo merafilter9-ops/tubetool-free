@@ -1,29 +1,21 @@
 import { Metadata } from "next";
-import Link from "next/link";
 import { 
     Coffee, 
-    ArrowRight, 
     Sparkles, 
     CheckCircle2, 
     XCircle, 
     Heart, 
     TrendingUp, 
     Users, 
-    ShieldCheck, 
     Rocket, 
     Gift, 
     Target, 
     BarChart3, 
     Lightbulb, 
-    HelpCircle, 
-    Star, 
     Search, 
     Compass, 
-    Video, 
     FileText, 
-    Flame, 
-    Award,
-    ExternalLink
+    Award
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import CreatorSuiteShowcase from "@/components/mission/creator-suite-showcase";
@@ -67,7 +59,7 @@ export default function OurMissionPage() {
                         </h1>
 
                         <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
-                            Most creators put in massive effort, but they don't have access to the right insights, strategy, and tools. Platforms charge $25–$50/mo. We're building <strong className="text-foreground">Tubetool.ai</strong> to give every creator high-powered AI tools for <strong className="text-red-500">100% Free</strong>.
+                            Most creators put in massive effort, but they don&apos;t have access to the right insights, strategy, and tools. Platforms charge $25–$50/mo. We&apos;re building <strong className="text-foreground">Tubetool.ai</strong> to give every creator high-powered AI tools for <strong className="text-red-500">100% Free</strong>.
                         </p>
 
                         <div className="pt-2 flex flex-col sm:flex-row items-start sm:items-center gap-4">
@@ -130,7 +122,7 @@ export default function OurMissionPage() {
                     </div>
                     <div className="p-4 rounded-2xl bg-card border flex flex-col gap-1 text-center">
                         <span className="text-2xl font-black text-blue-500">100M+</span>
-                        <span className="text-xs text-muted-foreground">Small creators can't afford subscriptions</span>
+                        <span className="text-xs text-muted-foreground">Small creators can&apos;t afford subscriptions</span>
                     </div>
                     <div className="p-4 rounded-2xl bg-card border flex flex-col gap-1 text-center">
                         <span className="text-2xl font-black text-emerald-500">Our Mission</span>
@@ -177,7 +169,7 @@ export default function OurMissionPage() {
                 {/* Graph Card */}
                 <div className="lg:col-span-6 bg-card border rounded-3xl p-6 sm:p-8 shadow-sm flex flex-col justify-between gap-4">
                     <div>
-                        <h2 className="text-xl font-bold text-foreground mb-1">Most YouTube Channels Don't Succeed</h2>
+                        <h2 className="text-xl font-bold text-foreground mb-1">Most YouTube Channels Don&apos;t Succeed</h2>
                         <p className="text-xs text-muted-foreground mb-4">Over 90% of channels never reach 10,000 subscribers.</p>
                     </div>
 
@@ -378,7 +370,7 @@ export default function OurMissionPage() {
                         <span className="text-xs font-bold text-red-500 uppercase tracking-wider block mb-1">Be A Part of This Mission</span>
                         <h3 className="text-lg font-bold text-foreground mb-2">Help Us Level The Playing Field</h3>
                         <p className="text-xs text-muted-foreground leading-relaxed">
-                            You're not just supporting a platform. You're helping build an ecosystem where every creator gets equal access to growth insights.
+                            You&apos;re not just supporting a platform. You&apos;re helping build an ecosystem where every creator gets equal access to growth insights.
                         </p>
                     </div>
 
@@ -402,7 +394,7 @@ export default function OurMissionPage() {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div className="p-5 rounded-2xl bg-card border flex flex-col justify-between gap-3 text-xs">
                         <p className="text-muted-foreground leading-relaxed italic">
-                            "Tubetool saved me hours of research. Amazing work! Happy to support this mission to keep tools free."
+                            &quot;Tubetool saved me hours of research. Amazing work! Happy to support this mission to keep tools free.&quot;
                         </p>
                         <div className="flex items-center gap-3 pt-2 border-t">
                             <div className="w-8 h-8 rounded-full bg-primary/20 text-primary font-bold flex items-center justify-center text-xs">RS</div>
@@ -415,7 +407,7 @@ export default function OurMissionPage() {
 
                     <div className="p-5 rounded-2xl bg-card border flex flex-col justify-between gap-3 text-xs">
                         <p className="text-muted-foreground leading-relaxed italic">
-                            "Finally a free alternative to expensive tools like VidIQ. This is exactly what small creators need."
+                            &quot;Finally a free alternative to expensive tools like VidIQ. This is exactly what small creators need.&quot;
                         </p>
                         <div className="flex items-center gap-3 pt-2 border-t">
                             <div className="w-8 h-8 rounded-full bg-amber-500/20 text-amber-500 font-bold flex items-center justify-center text-xs">PV</div>
@@ -428,7 +420,7 @@ export default function OurMissionPage() {
 
                     <div className="p-5 rounded-2xl bg-card border flex flex-col justify-between gap-3 text-xs">
                         <p className="text-muted-foreground leading-relaxed italic">
-                            "The GO/NO-GO predictor is super useful. Keeps me from wasting days filming low-demand topics."
+                            &quot;The GO/NO-GO predictor is super useful. Keeps me from wasting days filming low-demand topics.&quot;
                         </p>
                         <div className="flex items-center gap-3 pt-2 border-t">
                             <div className="w-8 h-8 rounded-full bg-blue-500/20 text-blue-500 font-bold flex items-center justify-center text-xs">AS</div>
@@ -449,7 +441,7 @@ export default function OurMissionPage() {
                 </div>
 
                 <h2 className="text-2xl sm:text-3xl font-black tracking-tight">
-                    Let's Build a Better YouTube Together
+                    Let&apos;s Build a Better YouTube Together
                 </h2>
 
                 <p className="text-xs sm:text-sm text-zinc-300 max-w-xl leading-relaxed">
