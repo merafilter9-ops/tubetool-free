@@ -57,6 +57,10 @@ export async function POST(req: Request, { params }: { params: { slug: string[] 
                 systemPrompt = "You are an expert YouTube Content Strategist and Script Writer specializing in high-retention video intros. Based on the user's video topic, target audience, hook vibe/tone, and video format, generate 5 distinct, high-impact opening script hooks (first 15-30 seconds). For each hook, provide the hook style name, exact first 3 seconds hook sentence, full spoken script lines, visual/b-roll cues, retention score (1-100), and psychological reasoning for why it stops viewers from clicking away.";
                 jsonStructure = '{ "hooks": [ { "id": 1, "style": "The Pattern Interrupt", "first3Seconds": "...", "script": "...", "visualCues": "...", "retentionScore": 95, "psychologicalReasoning": "..." } ] }';
                 break;
+            case 'title-ab-tester':
+                systemPrompt = "You are a world-class YouTube Algorithm Specialist and CTR Strategist. Analyze the provided title variations for a video in a specific niche and channel size. Rank the titles from highest to lowest predicted Click-Through Rate (CTR). Evaluate curiosity, clarity, keyword strength, and emotional pull for each title on a 1-100 scale. Identify the winning title, explain why it wins, and synthesize an improved hybrid title that combines the best psychological hooks and SEO keywords.";
+                jsonStructure = '{ "winningTitle": "...", "winningReason": "...", "hybridTitle": "...", "hybridExplanation": "...", "titlesRanked": [ { "rank": 1, "title": "...", "predictedCtrScore": 92, "curiosityScore": 90, "clarityScore": 88, "keywordStrength": 94, "emotionalPull": 86, "strengths": ["...", "..."], "weaknesses": ["..."], "verdict": "..." } ] }';
+                break;
             default:
                 return NextResponse.json({ error: 'Tool not found' }, { status: 404 });
         }

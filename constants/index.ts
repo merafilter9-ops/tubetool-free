@@ -1,4 +1,4 @@
-import { BookImage, CirclePlay, FilePenLine, FileSearch, Hash, ImageUp, Lightbulb, Sparkles, Tag, Text, TextSearch, Type } from "lucide-react";
+import { BookImage, CirclePlay, FilePenLine, FileSearch, Hash, ImageUp, Lightbulb, Sparkles, Split, Tag, Text, TextSearch, Type } from "lucide-react";
 import { SelectOptionsType, CountryCodeType, VideoCategoryType, GermanToEnglishMapType, SuggestedActionType, PlanOptionsType } from "./types";
 
 export const VIDEO_CATEGORIES: VideoCategoryType[] = [
@@ -732,6 +732,12 @@ export const TOOLS = [
         value: "title-generator",
         icon: Type,
         description: "Title generator is a tool that helps you to generate the SEO optimized Title."
+    },
+    {
+        label: "A/B Title Tester",
+        value: "title-ab-tester",
+        icon: Split,
+        description: "Test 2-5 title variations before uploading and get AI CTR predictions, curiosity & clarity scores, and hybrid titles."
     },
     {
         label: "Description Generator",

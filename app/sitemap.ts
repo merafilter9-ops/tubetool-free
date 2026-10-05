@@ -15,6 +15,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
             priority: 0.8,
         },
         {
+            url: 'https://tubetool.ai/tools/title-ab-tester',
+            lastModified: new Date(),
+            changeFrequency: 'daily',
+            priority: 0.8,
+        },
+        {
             url: 'https://tubetool.ai/tools/description-generator',
             lastModified: new Date(),
             changeFrequency: 'daily',

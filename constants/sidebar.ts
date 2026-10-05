@@ -13,6 +13,7 @@ import {
     ImageUp,
     Heart,
     Sparkles,
+    Split,
 } from 'lucide-react';
 
 import { SidebarItems } from '@/types/constants';
@@ -26,6 +27,12 @@ export const SIDEBAR_ITEMS: SidebarItems[] = [
                 href: '/tools/title-generator',
                 icon: Type,
                 tooltip: 'Title Generator'
+            },
+            {
+                label: 'A/B Title Tester',
+                href: '/tools/title-ab-tester',
+                icon: Split,
+                tooltip: 'A/B Title Tester'
             },
             {
                 label: 'Description Generator',
