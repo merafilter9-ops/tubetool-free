@@ -18,6 +18,7 @@ export function generateToolMetadata({
     const url = `https://www.tubetool.ai/tools/${slug}`;
 
     return {
+        metadataBase: new URL('https://www.tubetool.ai'),
         title,
         description,
         keywords: [

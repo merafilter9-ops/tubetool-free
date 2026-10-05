@@ -11,9 +11,16 @@ import StoreProvider from './StoreProvider';
 
 
 export const metadata: Metadata = {
-  title: "TubeTool - All-in-One Toolkit for YouTube Channel Growth",
+  metadataBase: new URL('https://www.tubetool.ai'),
+  title: {
+    default: "TubeTool - All-in-One Toolkit for YouTube Channel Growth",
+    template: "%s | TubeTool.ai"
+  },
   description: "Want to grow on YouTube? TubeTool provides free tools that simplify keyword research, video optimization, and more. Start growing for free",
-  keywords: ["Tubetool.ai", "Tubetool"],
+  keywords: ["Tubetool.ai", "Tubetool", "Free YouTube Growth Tools", "YouTube SEO tools"],
+  alternates: {
+    canonical: 'https://www.tubetool.ai',
+  },
   icons: {
     icon: [
       {
