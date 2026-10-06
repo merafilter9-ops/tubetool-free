@@ -78,6 +78,8 @@ interface AuditResult {
 const SpeedometerGauge = ({ score }: { score: number }) => {
     // Rotation range: -90deg (0 score) to +90deg (100 score)
     const angle = (score / 100) * 180 - 90;
+    const arcLength = 157.08; // Math.PI * 50
+    const dashOffset = arcLength - (arcLength * Math.min(Math.max(score, 0), 100)) / 100;
 
     const getScoreLabel = (s: number) => {
         if (s >= 80) return "High CTR Potential";
@@ -91,44 +93,68 @@ const SpeedometerGauge = ({ score }: { score: number }) => {
         return "#f43f5e"; // rose
     };
 
+    const getBadgeStyle = (s: number) => {
+        if (s >= 80) return "bg-emerald-500/10 text-emerald-500 border-emerald-500/30";
+        if (s >= 60) return "bg-amber-500/10 text-amber-500 border-amber-500/30";
+        return "bg-rose-500/10 text-rose-500 border-rose-500/30";
+    };
+
     return (
-        <div className="flex flex-col items-center justify-center relative w-full py-2">
-            <svg viewBox="0 0 100 55" className="w-44 h-24 overflow-visible">
-                {/* Background Arc */}
-                <path
-                    d="M 10 50 A 40 40 0 0 1 90 50"
-                    fill="none"
-                    stroke="#e2e8f0"
-                    strokeWidth="10"
-                    strokeLinecap="round"
-                    className="dark:stroke-slate-700"
-                />
+        <div className="flex flex-col items-center justify-center relative w-full pt-2 pb-1">
+            <div className="relative flex items-center justify-center w-52 h-28">
+                <svg viewBox="0 0 140 80" className="w-full h-full overflow-visible">
+                    <defs>
+                        <linearGradient id="speedometerGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stopColor="#f43f5e" />
+                            <stop offset="50%" stopColor="#f59e0b" />
+                            <stop offset="100%" stopColor="#10b981" />
+                        </linearGradient>
+                        <filter id="needleGlow" x="-20%" y="-20%" width="140%" height="140%">
+                            <feDropShadow dx="0" dy="1" stdDeviation="1.5" floodColor="#000000" floodOpacity="0.4" />
+                        </filter>
+                    </defs>
 
-                {/* Score Color Segment Arc */}
-                <path
-                    d="M 10 50 A 40 40 0 0 1 90 50"
-                    fill="none"
-                    stroke={getScoreColor(score)}
-                    strokeWidth="10"
-                    strokeDasharray="125.6"
-                    strokeDashoffset={125.6 - (125.6 * score) / 100}
-                    strokeLinecap="round"
-                    className="transition-all duration-1000 ease-out"
-                />
+                    {/* Muted Track Background */}
+                    <path
+                        d="M 20 70 A 50 50 0 0 1 120 70"
+                        fill="none"
+                        stroke="#334155"
+                        strokeWidth="10"
+                        strokeLinecap="round"
+                        className="opacity-20 dark:opacity-40"
+                    />
 
-                {/* Needle Indicator */}
-                <g transform={`rotate(${angle} 50 50)`} className="transition-transform duration-1000 ease-out">
-                    <line x1="50" y1="50" x2="50" y2="18" stroke="#1e293b" strokeWidth="3.5" strokeLinecap="round" className="dark:stroke-slate-100" />
-                    <circle cx="50" cy="50" r="5" fill="#1e293b" className="dark:fill-slate-100" />
-                </g>
-            </svg>
+                    {/* Active Gradient Arc */}
+                    <path
+                        d="M 20 70 A 50 50 0 0 1 120 70"
+                        fill="none"
+                        stroke="url(#speedometerGrad)"
+                        strokeWidth="10"
+                        strokeDasharray={arcLength}
+                        strokeDashoffset={dashOffset}
+                        strokeLinecap="round"
+                        className="transition-all duration-1000 ease-out"
+                    />
 
-            {/* Score Text Overlay */}
-            <div className="flex flex-col items-center -mt-5">
-                <span className="text-3xl font-black tracking-tight" style={{ color: getScoreColor(score) }}>
-                    {score}<span className="text-sm text-muted-foreground font-semibold">/100</span>
-                </span>
-                <span className="text-xs font-bold text-muted-foreground uppercase tracking-wider mt-0.5">
+                    {/* Needle & Pivot */}
+                    <g transform={`rotate(${angle} 70 70)`} filter="url(#needleGlow)" className="transition-transform duration-1000 ease-out">
+                        {/* Needle body */}
+                        <polygon points="68,70 72,70 70,26" fill="#f8fafc" className="dark:fill-slate-100 fill-slate-800" />
+                        {/* Pivot Cap */}
+                        <circle cx="70" cy="70" r="6" fill="#0f172a" stroke="#f8fafc" strokeWidth="2" />
+                    </g>
+                </svg>
+            </div>
+
+            {/* Score & Label display underneath without collision */}
+            <div className="flex flex-col items-center gap-1 mt-1">
+                <div className="flex items-baseline gap-1">
+                    <span className="text-3xl font-extrabold tracking-tight" style={{ color: getScoreColor(score) }}>
+                        {score}
+                    </span>
+                    <span className="text-sm font-semibold text-muted-foreground">/ 100</span>
+                </div>
+                <span className={`text-[11px] font-bold uppercase tracking-wider px-3 py-0.5 rounded-full border ${getBadgeStyle(score)}`}>
                     {getScoreLabel(score)}
                 </span>
             </div>
