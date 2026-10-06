@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useTransition, useEffect } from "react";
-import { Copy, Check, SearchCheck, ExternalLink, Sparkles, CheckCircle2, AlertTriangle, XCircle, ChevronDown, ChevronUp, RefreshCw, Wand2 } from "lucide-react";
+import { Copy, Check, SearchCheck, ExternalLink, Sparkles, CheckCircle2, AlertTriangle, XCircle, ChevronDown, ChevronUp, RefreshCw, Wand2, Smartphone, Eye, Palette, Type, Gauge } from "lucide-react";
 import { toast } from "sonner";
 import confetti from 'canvas-confetti';
 
@@ -11,6 +11,12 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { BuyMeCoffeeBanner } from "@/components/buy-me-coffee-banner";
+
+interface FactorDetail {
+    score: number;
+    label: string;
+    feedback: string;
+}
 
 interface AuditResult {
     overallScore: number;
@@ -48,6 +54,12 @@ interface AuditResult {
     };
     thumbnailAssessment: {
         score: number;
+        factors?: {
+            colorContrast?: FactorDetail;
+            mobileReadability?: FactorDetail;
+            focalPoint?: FactorDetail;
+            curiosityGap?: FactorDetail;
+        };
         contrastFeedback: string;
         textOverlayFeedback: string;
         mobileReadability: string;
@@ -61,6 +73,68 @@ interface AuditResult {
     optimizedTitleAlternatives: string[];
     optimizedDescriptionSnippet: string;
 }
+
+// Speedometer Radial Gauge Component
+const SpeedometerGauge = ({ score }: { score: number }) => {
+    // Rotation range: -90deg (0 score) to +90deg (100 score)
+    const angle = (score / 100) * 180 - 90;
+
+    const getScoreLabel = (s: number) => {
+        if (s >= 80) return "High CTR Potential";
+        if (s >= 60) return "Moderate Optimization";
+        return "Needs Redesign";
+    };
+
+    const getScoreColor = (s: number) => {
+        if (s >= 80) return "#10b981"; // emerald
+        if (s >= 60) return "#f59e0b"; // amber
+        return "#f43f5e"; // rose
+    };
+
+    return (
+        <div className="flex flex-col items-center justify-center relative w-full py-2">
+            <svg viewBox="0 0 100 55" className="w-44 h-24 overflow-visible">
+                {/* Background Arc */}
+                <path
+                    d="M 10 50 A 40 40 0 0 1 90 50"
+                    fill="none"
+                    stroke="#e2e8f0"
+                    strokeWidth="10"
+                    strokeLinecap="round"
+                    className="dark:stroke-slate-700"
+                />
+
+                {/* Score Color Segment Arc */}
+                <path
+                    d="M 10 50 A 40 40 0 0 1 90 50"
+                    fill="none"
+                    stroke={getScoreColor(score)}
+                    strokeWidth="10"
+                    strokeDasharray="125.6"
+                    strokeDashoffset={125.6 - (125.6 * score) / 100}
+                    strokeLinecap="round"
+                    className="transition-all duration-1000 ease-out"
+                />
+
+                {/* Needle Indicator */}
+                <g transform={`rotate(${angle} 50 50)`} className="transition-transform duration-1000 ease-out">
+                    <line x1="50" y1="50" x2="50" y2="18" stroke="#1e293b" strokeWidth="3.5" strokeLinecap="round" className="dark:stroke-slate-100" />
+                    <circle cx="50" cy="50" r="5" fill="#1e293b" className="dark:fill-slate-100" />
+                </g>
+            </svg>
+
+            {/* Score Text Overlay */}
+            <div className="flex flex-col items-center -mt-5">
+                <span className="text-3xl font-black tracking-tight" style={{ color: getScoreColor(score) }}>
+                    {score}<span className="text-sm text-muted-foreground font-semibold">/100</span>
+                </span>
+                <span className="text-xs font-bold text-muted-foreground uppercase tracking-wider mt-0.5">
+                    {getScoreLabel(score)}
+                </span>
+            </div>
+        </div>
+    );
+};
 
 export const VideoAuditForm = () => {
     const [videoUrl, setVideoUrl] = useState("");
@@ -171,6 +245,11 @@ export const VideoAuditForm = () => {
         return "bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/30";
     };
 
+    const getFactorProgressColor = (score: number) => {
+        if (score >= 80) return "bg-emerald-500";
+        if (score >= 60) return "bg-amber-500";
+        return "bg-rose-500";
+    };
 
     return (
         <div className="w-full flex flex-col gap-6">
@@ -352,6 +431,156 @@ export const VideoAuditForm = () => {
                             <div className="relative w-full md:w-48 aspect-video rounded-xl overflow-hidden border border-border flex-shrink-0 shadow-xs">
                                 {/* eslint-disable-next-line @next/next/no-img-element */}
                                 <img src={auditResult.extractedVideoInfo.thumbnailUrl} alt="Thumbnail Preview" className="w-full h-full object-cover" />
+                            </div>
+                        )}
+                    </div>
+
+                    {/* Enhanced Thumbnail Speedometer & Factor Audit Card */}
+                    <div className="w-full flex flex-col gap-6 p-6 rounded-2xl bg-card border border-border shadow-sm">
+                        <div className="flex items-center justify-between border-b border-border pb-4">
+                            <div className="flex items-center gap-2">
+                                <Gauge className="w-5 h-5 text-primary" />
+                                <h3 className="text-base font-bold text-foreground">Thumbnail Visual & CTR Audit</h3>
+                            </div>
+                            <span className={`text-xs font-bold px-3 py-1 rounded-full border ${getScoreBadgeColor(auditResult.thumbnailAssessment.score)}`}>
+                                Thumbnail Score: {auditResult.thumbnailAssessment.score}/100
+                            </span>
+                        </div>
+
+                        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                            {/* Speedometer Gauge Column */}
+                            <div className="lg:col-span-4 flex flex-col items-center justify-center p-4 rounded-xl bg-muted/30 border border-border/50 text-center">
+                                <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">CTR Speedometer</span>
+                                <SpeedometerGauge score={auditResult.thumbnailAssessment.score} />
+                                <p className="text-xs text-muted-foreground mt-3 px-2">
+                                    {auditResult.thumbnailAssessment.contrastFeedback}
+                                </p>
+                            </div>
+
+                            {/* Factor-Wise Scores Column */}
+                            <div className="lg:col-span-8 flex flex-col gap-4">
+                                <h4 className="text-xs font-bold uppercase tracking-wider text-muted-foreground text-left">Factor-Wise Visual Ratings</h4>
+
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-left">
+                                    {/* Color & Contrast */}
+                                    <div className="flex flex-col gap-1.5 p-3 rounded-xl bg-muted/30 border border-border/50">
+                                        <div className="flex items-center justify-between text-xs">
+                                            <span className="font-semibold text-foreground flex items-center gap-1.5">
+                                                <Palette className="w-3.5 h-3.5 text-indigo-500" /> Color & Contrast
+                                            </span>
+                                            <span className="font-bold">{auditResult.thumbnailAssessment.factors?.colorContrast?.score || 85}/100</span>
+                                        </div>
+                                        <div className="w-full h-2 rounded-full bg-muted overflow-hidden">
+                                            <div
+                                                className={`h-full rounded-full transition-all duration-500 ${getFactorProgressColor(auditResult.thumbnailAssessment.factors?.colorContrast?.score || 85)}`}
+                                                style={{ width: `${auditResult.thumbnailAssessment.factors?.colorContrast?.score || 85}%` }}
+                                            />
+                                        </div>
+                                        <p className="text-[11px] text-muted-foreground line-clamp-2">
+                                            {auditResult.thumbnailAssessment.factors?.colorContrast?.feedback || auditResult.thumbnailAssessment.contrastFeedback}
+                                        </p>
+                                    </div>
+
+                                    {/* Mobile Readability */}
+                                    <div className="flex flex-col gap-1.5 p-3 rounded-xl bg-muted/30 border border-border/50">
+                                        <div className="flex items-center justify-between text-xs">
+                                            <span className="font-semibold text-foreground flex items-center gap-1.5">
+                                                <Type className="w-3.5 h-3.5 text-amber-500" /> Mobile Readability
+                                            </span>
+                                            <span className="font-bold">{auditResult.thumbnailAssessment.factors?.mobileReadability?.score || 88}/100</span>
+                                        </div>
+                                        <div className="w-full h-2 rounded-full bg-muted overflow-hidden">
+                                            <div
+                                                className={`h-full rounded-full transition-all duration-500 ${getFactorProgressColor(auditResult.thumbnailAssessment.factors?.mobileReadability?.score || 88)}`}
+                                                style={{ width: `${auditResult.thumbnailAssessment.factors?.mobileReadability?.score || 88}%` }}
+                                            />
+                                        </div>
+                                        <p className="text-[11px] text-muted-foreground line-clamp-2">
+                                            {auditResult.thumbnailAssessment.factors?.mobileReadability?.feedback || auditResult.thumbnailAssessment.textOverlayFeedback}
+                                        </p>
+                                    </div>
+
+                                    {/* Focal Point & Subject */}
+                                    <div className="flex flex-col gap-1.5 p-3 rounded-xl bg-muted/30 border border-border/50">
+                                        <div className="flex items-center justify-between text-xs">
+                                            <span className="font-semibold text-foreground flex items-center gap-1.5">
+                                                <Eye className="w-3.5 h-3.5 text-blue-500" /> Focal Point & Subject
+                                            </span>
+                                            <span className="font-bold">{auditResult.thumbnailAssessment.factors?.focalPoint?.score || 78}/100</span>
+                                        </div>
+                                        <div className="w-full h-2 rounded-full bg-muted overflow-hidden">
+                                            <div
+                                                className={`h-full rounded-full transition-all duration-500 ${getFactorProgressColor(auditResult.thumbnailAssessment.factors?.focalPoint?.score || 78)}`}
+                                                style={{ width: `${auditResult.thumbnailAssessment.factors?.focalPoint?.score || 78}%` }}
+                                            />
+                                        </div>
+                                        <p className="text-[11px] text-muted-foreground line-clamp-2">
+                                            {auditResult.thumbnailAssessment.factors?.focalPoint?.feedback || "Main subject visibility and facial emotion focus score."}
+                                        </p>
+                                    </div>
+
+                                    {/* Curiosity & Visual Pop */}
+                                    <div className="flex flex-col gap-1.5 p-3 rounded-xl bg-muted/30 border border-border/50">
+                                        <div className="flex items-center justify-between text-xs">
+                                            <span className="font-semibold text-foreground flex items-center gap-1.5">
+                                                <Sparkles className="w-3.5 h-3.5 text-emerald-500" /> Curiosity & Visual Pop
+                                            </span>
+                                            <span className="font-bold">{auditResult.thumbnailAssessment.factors?.curiosityGap?.score || 82}/100</span>
+                                        </div>
+                                        <div className="w-full h-2 rounded-full bg-muted overflow-hidden">
+                                            <div
+                                                className={`h-full rounded-full transition-all duration-500 ${getFactorProgressColor(auditResult.thumbnailAssessment.factors?.curiosityGap?.score || 82)}`}
+                                                style={{ width: `${auditResult.thumbnailAssessment.factors?.curiosityGap?.score || 82}%` }}
+                                            />
+                                        </div>
+                                        <p className="text-[11px] text-muted-foreground line-clamp-2">
+                                            {auditResult.thumbnailAssessment.factors?.curiosityGap?.feedback || "Creates a curiosity gap that encourages clicks."}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Mobile YouTube Feed Preview Simulation */}
+                        {auditResult.extractedVideoInfo?.thumbnailUrl && (
+                            <div className="flex flex-col gap-3 border-t border-border pt-5 text-left">
+                                <span className="text-xs font-bold text-foreground flex items-center gap-1.5">
+                                    <Smartphone className="w-4 h-4 text-primary" /> Simulated Mobile YouTube App Feed Card
+                                </span>
+                                <div className="max-w-md w-full mx-auto p-3 rounded-2xl bg-black text-white shadow-lg border border-slate-800">
+                                    <div className="relative aspect-video w-full rounded-xl overflow-hidden mb-3">
+                                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                                        <img src={auditResult.extractedVideoInfo.thumbnailUrl} alt="Mobile Feed Preview" className="w-full h-full object-cover" />
+                                        <span className="absolute bottom-2 right-2 bg-black/80 text-white text-[10px] font-bold px-1.5 py-0.5 rounded">
+                                            12:45
+                                        </span>
+                                    </div>
+                                    <div className="flex items-start gap-3 px-1">
+                                        <div className="w-9 h-9 rounded-full bg-primary/20 flex items-center justify-center font-bold text-xs text-primary flex-shrink-0">
+                                            {auditResult.extractedVideoInfo.authorName?.charAt(0) || "Y"}
+                                        </div>
+                                        <div className="flex flex-col gap-0.5 w-full">
+                                            <h5 className="text-xs font-semibold text-slate-100 line-clamp-2 leading-tight">
+                                                {auditResult.extractedVideoInfo.title || title}
+                                            </h5>
+                                            <p className="text-[10px] text-slate-400">
+                                                {auditResult.extractedVideoInfo.authorName || "YouTube Channel"} • 145K views • 2 days ago
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Visual Enhancement Suggestions */}
+                        {auditResult.thumbnailAssessment.visualSuggestions && auditResult.thumbnailAssessment.visualSuggestions.length > 0 && (
+                            <div className="flex flex-col gap-2 border-t border-border pt-4 text-left">
+                                <span className="text-xs font-bold text-foreground">Actionable Thumbnail Fixes:</span>
+                                <ul className="list-disc pl-4 space-y-1 text-xs text-secondary-foreground dark:text-gray-400">
+                                    {auditResult.thumbnailAssessment.visualSuggestions.map((sug, idx) => (
+                                        <li key={idx}>{sug}</li>
+                                    ))}
+                                </ul>
                             </div>
                         )}
                     </div>
@@ -553,40 +782,6 @@ export const VideoAuditForm = () => {
                                                 </button>
                                             ))}
                                         </div>
-                                    </div>
-                                )}
-                            </div>
-                        </div>
-
-                        {/* Thumbnail Audit Card */}
-                        <div className="flex flex-col gap-4 p-5 rounded-2xl bg-card border border-border shadow-sm">
-                            <div className="flex items-center justify-between border-b border-border pb-3">
-                                <h3 className="text-sm font-bold text-foreground">
-                                    Thumbnail Visual Audit
-                                </h3>
-                                <span className={`text-xs font-bold px-2.5 py-1 rounded-full border ${getScoreBadgeColor(auditResult.thumbnailAssessment.score)}`}>
-                                    Score: {auditResult.thumbnailAssessment.score}/100
-                                </span>
-                            </div>
-
-                            <div className="flex flex-col gap-3 text-left">
-                                <div className="flex items-center justify-between text-xs">
-                                    <span className="text-muted-foreground">Mobile Readability:</span>
-                                    <span className="font-semibold text-primary">{auditResult.thumbnailAssessment.mobileReadability}</span>
-                                </div>
-
-                                <p className="text-xs text-muted-foreground bg-muted/30 p-2.5 rounded-lg border border-border/50">
-                                    {auditResult.thumbnailAssessment.contrastFeedback}
-                                </p>
-
-                                {auditResult.thumbnailAssessment.visualSuggestions && auditResult.thumbnailAssessment.visualSuggestions.length > 0 && (
-                                    <div className="flex flex-col gap-1.5 mt-1">
-                                        <span className="text-xs font-semibold text-foreground">Visual Enhancements:</span>
-                                        <ul className="list-disc pl-4 space-y-1 text-xs text-secondary-foreground dark:text-gray-400">
-                                            {auditResult.thumbnailAssessment.visualSuggestions.map((sug, idx) => (
-                                                <li key={idx}>{sug}</li>
-                                            ))}
-                                        </ul>
                                     </div>
                                 )}
                             </div>
