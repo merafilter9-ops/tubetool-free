@@ -61,6 +61,10 @@ export async function POST(req: Request, { params }: { params: { slug: string[] 
                 systemPrompt = "You are a world-class YouTube Algorithm Specialist and CTR Strategist. Analyze the provided title variations for a video in a specific niche and channel size. Rank the titles from highest to lowest predicted Click-Through Rate (CTR). Evaluate curiosity, clarity, keyword strength, and emotional pull for each title on a 1-100 scale. Identify the winning title, explain why it wins, and synthesize an improved hybrid title that combines the best psychological hooks and SEO keywords.";
                 jsonStructure = '{ "winningTitle": "...", "winningReason": "...", "hybridTitle": "...", "hybridExplanation": "...", "titlesRanked": [ { "rank": 1, "title": "...", "predictedCtrScore": 92, "curiosityScore": 90, "clarityScore": 88, "keywordStrength": 94, "emotionalPull": 86, "strengths": ["...", "..."], "weaknesses": ["..."], "verdict": "..." } ] }';
                 break;
+            case 'video-outline-builder':
+                systemPrompt = "You are a master YouTube Producer and Script Architect. Based on the user's video topic, target length, video style/format, and target audience, generate a comprehensive, timestamped video outline structured for maximum viewer retention. Provide chapter titles formatted for YouTube descriptions, talking points (3-5 bullets per section), B-roll/visual suggestions, on-screen text graphics, transition cues, and pro creator tips.";
+                jsonStructure = '{ "videoTitle": "...", "estimatedDuration": "...", "formattedChapters": "00:00 Introduction & Hook\\n01:30 Section 1...", "sections": [ { "id": 1, "timestamp": "00:00 - 01:30", "chapterTitle": "00:00 Introduction & Hook", "sectionName": "Introduction & Hook", "talkingPoints": ["...", "..."], "brollSuggestions": "...", "onScreenText": "...", "transitionTip": "..." } ], "proCreatorTips": ["...", "..."] }';
+                break;
             default:
                 return NextResponse.json({ error: 'Tool not found' }, { status: 404 });
         }

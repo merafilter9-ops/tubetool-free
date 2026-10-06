@@ -14,6 +14,7 @@ import {
     Heart,
     Sparkles,
     Split,
+    ListTree,
 } from 'lucide-react';
 
 import { SidebarItems } from '@/types/constants';
@@ -45,6 +46,12 @@ export const SIDEBAR_ITEMS: SidebarItems[] = [
                 href: '/tools/script-hook-generator',
                 icon: Sparkles,
                 tooltip: 'Script Hook Generator'
+            },
+            {
+                label: 'Video Outline Builder',
+                href: '/tools/video-outline-builder',
+                icon: ListTree,
+                tooltip: 'Video Outline Builder'
             },
             {
                 label: 'Tag Generator',

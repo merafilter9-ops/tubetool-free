@@ -1,4 +1,4 @@
-import { BookImage, CirclePlay, FilePenLine, FileSearch, Hash, ImageUp, Lightbulb, Sparkles, Split, Tag, Text, TextSearch, Type } from "lucide-react";
+import { BookImage, CirclePlay, FilePenLine, FileSearch, Hash, ImageUp, Lightbulb, ListTree, Sparkles, Split, Tag, Text, TextSearch, Type } from "lucide-react";
 import { SelectOptionsType, CountryCodeType, VideoCategoryType, GermanToEnglishMapType, SuggestedActionType, PlanOptionsType } from "./types";
 
 export const VIDEO_CATEGORIES: VideoCategoryType[] = [
@@ -750,6 +750,12 @@ export const TOOLS = [
         value: "script-hook-generator",
         icon: Sparkles,
         description: "Generate high-retention 15-30 second video opening hooks and scripts that stop viewer drop-off instantly."
+    },
+    {
+        label: "Video Outline Builder",
+        value: "video-outline-builder",
+        icon: ListTree,
+        description: "Generate structured long-form YouTube video outlines with exact timestamps, talking points, B-roll suggestions, and chapter titles."
     },
     {
         label: "Tag Generator",

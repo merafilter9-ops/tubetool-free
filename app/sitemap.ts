@@ -35,6 +35,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
             priority: 0.8,
         },
         {
+            url: 'https://www.tubetool.ai/tools/video-outline-builder',
+            lastModified: currentDate,
+            changeFrequency: 'daily',
+            priority: 0.8,
+        },
+        {
             url: 'https://www.tubetool.ai/tools/tag-generator',
             lastModified: currentDate,
             changeFrequency: 'daily',
