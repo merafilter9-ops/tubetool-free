@@ -1,4 +1,4 @@
-import { BookImage, CirclePlay, FilePenLine, FileSearch, Hash, ImageUp, Lightbulb, ListTree, Sparkles, Split, Tag, Text, TextSearch, Type } from "lucide-react";
+import { BookImage, CirclePlay, FilePenLine, FileSearch, Hash, ImageUp, Lightbulb, ListTree, SearchCheck, Sparkles, Split, Tag, Text, TextSearch, Type } from "lucide-react";
 import { SelectOptionsType, CountryCodeType, VideoCategoryType, GermanToEnglishMapType, SuggestedActionType, PlanOptionsType } from "./types";
 
 export const VIDEO_CATEGORIES: VideoCategoryType[] = [
@@ -756,6 +756,12 @@ export const TOOLS = [
         value: "video-outline-builder",
         icon: ListTree,
         description: "Generate structured long-form YouTube video outlines with exact timestamps, talking points, B-roll suggestions, and chapter titles."
+    },
+    {
+        label: "Video Audit Tool",
+        value: "video-audit-tool",
+        icon: SearchCheck,
+        description: "Paste any YouTube video URL to get a complete audit of title, description, tags, thumbnail, and 5 priority SEO action items."
     },
     {
         label: "Tag Generator",

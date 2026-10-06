@@ -15,6 +15,7 @@ import {
     Sparkles,
     Split,
     ListTree,
+    SearchCheck,
 } from 'lucide-react';
 
 import { SidebarItems } from '@/types/constants';
@@ -52,6 +53,12 @@ export const SIDEBAR_ITEMS: SidebarItems[] = [
                 href: '/tools/video-outline-builder',
                 icon: ListTree,
                 tooltip: 'Video Outline Builder'
+            },
+            {
+                label: 'Video Audit Tool',
+                href: '/tools/video-audit-tool',
+                icon: SearchCheck,
+                tooltip: 'Video Audit Tool'
             },
             {
                 label: 'Tag Generator',
