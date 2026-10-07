@@ -186,22 +186,14 @@ export const ThumbnailBattlefieldForm = () => {
     };
 
     return (
-        <div className="w-full flex flex-col gap-6">
-            {/* Header */}
-            <div className="flex flex-col items-center justify-center text-center gap-2 pt-4">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-500/10 text-rose-600 dark:text-rose-400 text-xs font-bold uppercase tracking-wider border border-rose-500/20">
-                    <Swords className="w-3.5 h-3.5" /> Thumbnail Battlefield™
-                </div>
-                <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-                    See Your Thumbnail Next to the Competition
-                </h1>
-                <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-2xl">
-                    Test your video thumbnail and title against real competing search results before spending impressions. Know if your packaging will win the click.
-                </p>
-            </div>
+        <div className="w-full flex flex-col gap-2.5 items-center pt-4 md:pt-10">
+            {/* UNIFORM HEADING */}
+            <h1 className="text-2xl font-semibold text-center bg-gradient-to-tr from-black/90 via-black/90 to-primary-foreground text-transparent bg-clip-text dark:from-primary-foreground dark:via-primary-foreground dark:to-dark mb-2">
+                Thumbnail Battlefield Tool
+            </h1>
 
-            {/* Input Form */}
-            <form onSubmit={handleAnalyze} className="w-full flex flex-col gap-5 bg-card border border-border p-5 sm:p-7 rounded-2xl shadow-sm">
+            {/* UNIFORM FORM CONTAINER */}
+            <form onSubmit={handleAnalyze} className="w-full flex gap-4 flex-col items-center">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     {/* Target Keyword */}
                     <div className="flex flex-col gap-2 text-left">

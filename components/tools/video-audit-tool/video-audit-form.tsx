@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useTransition, useEffect } from "react";
-import { Copy, Check, SearchCheck, ExternalLink, Sparkles, CheckCircle2, AlertTriangle, XCircle, ChevronDown, ChevronUp, RefreshCw, Wand2, Smartphone, Eye, Palette, Type, Gauge } from "lucide-react";
+import { Copy, Check, ExternalLink, Sparkles, CheckCircle2, AlertTriangle, XCircle, ChevronDown, ChevronUp, RefreshCw, Wand2, Smartphone, Eye, Palette, Type, Gauge } from "lucide-react";
 import { toast } from "sonner";
 import confetti from 'canvas-confetti';
 
@@ -278,22 +278,14 @@ export const VideoAuditForm = () => {
     };
 
     return (
-        <div className="w-full flex flex-col gap-6">
-            {/* Tool Header */}
-            <div className="flex flex-col items-center justify-center text-center gap-2 pt-4">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold">
-                    <SearchCheck className="w-3.5 h-3.5" /> Free AI YouTube Video Audit & SEO Checker
-                </div>
-                <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-                    YouTube Video Audit Tool
-                </h1>
-                <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-2xl">
-                    Paste any YouTube video link to get an instant SEO audit of its title, description, tags, and thumbnail with actionable priority fixes.
-                </p>
-            </div>
+        <div className="w-full flex flex-col gap-2.5 items-center pt-4 md:pt-10">
+            {/* UNIFORM HEADING */}
+            <h1 className="text-2xl font-semibold text-center bg-gradient-to-tr from-black/90 via-black/90 to-primary-foreground text-transparent bg-clip-text dark:from-primary-foreground dark:via-primary-foreground dark:to-dark mb-2">
+                YouTube Video Audit Tool
+            </h1>
 
-            {/* Input Form */}
-            <form onSubmit={handleAudit} className="w-full flex flex-col gap-5 bg-card border border-border p-5 sm:p-7 rounded-2xl shadow-sm">
+            {/* UNIFORM FORM CONTAINER */}
+            <form onSubmit={handleAudit} className="w-full flex gap-4 flex-col items-center">
                 <div className="flex flex-col gap-2">
                     <Label htmlFor="videoUrl" className="text-sm font-semibold flex items-center justify-between">
                         <span>YouTube Video URL <span className="text-rose-500">*</span></span>
