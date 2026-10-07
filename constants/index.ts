@@ -1,4 +1,4 @@
-import { BookImage, CirclePlay, FilePenLine, FileSearch, Hash, ImageUp, Lightbulb, ListTree, SearchCheck, Sparkles, Split, Tag, Text, TextSearch, Type } from "lucide-react";
+import { BookImage, CirclePlay, FilePenLine, FileSearch, Hash, ImageUp, Lightbulb, ListTree, SearchCheck, Sparkles, Split, Swords, Tag, Text, TextSearch, Type } from "lucide-react";
 import { SelectOptionsType, CountryCodeType, VideoCategoryType, GermanToEnglishMapType, SuggestedActionType, PlanOptionsType } from "./types";
 
 export const VIDEO_CATEGORIES: VideoCategoryType[] = [
@@ -776,6 +776,12 @@ export const TOOLS = [
         description: "Hashtag generator is a tool that helps you to generate the SEO optimized Hashtags."
     },
 
+    {
+        label: "Thumbnail Battlefield",
+        value: "thumbnail-battlefield",
+        icon: Swords,
+        description: "Test your YouTube thumbnail side-by-side with real search competitors before you publish to predict CTR and stand out on feeds."
+    },
     {
         label: "Thumbnail Generator",
         value: "thumbnail-generator",

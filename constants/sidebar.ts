@@ -16,6 +16,7 @@ import {
     Split,
     ListTree,
     SearchCheck,
+    Swords,
 } from 'lucide-react';
 
 import { SidebarItems } from '@/types/constants';
@@ -77,6 +78,12 @@ export const SIDEBAR_ITEMS: SidebarItems[] = [
     {
         category: 'Thumbnail Tools',
         items: [
+            {
+                label: 'Thumbnail Battlefield',
+                href: '/tools/thumbnail-battlefield',
+                icon: Swords,
+                tooltip: 'Thumbnail Battlefield'
+            },
             {
                 label: 'Thumbnail Generator',
                 href: '/tools/thumbnail-generator',
