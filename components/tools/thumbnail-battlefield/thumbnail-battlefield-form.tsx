@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useTransition, ChangeEvent } from "react";
-import { Copy, Check, Swords, Upload, Image as ImageIcon, Sparkles, RefreshCw, Smartphone, Monitor, ShieldCheck, AlertTriangle, Zap, Target, Layers, Crosshair, BarChart3, Eye, Search, CheckCircle2, Sun, Moon, Maximize2 } from "lucide-react";
+import { Copy, Check, Upload, Image as ImageIcon, Sparkles, RefreshCw, Smartphone, Monitor, ShieldCheck, AlertTriangle, Zap, Target, Layers, Crosshair, BarChart3, Eye, Search, CheckCircle2, Sun, Moon, Maximize2 } from "lucide-react";
 import { toast } from "sonner";
 import confetti from 'canvas-confetti';
 
@@ -10,6 +10,13 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { BuyMeCoffeeBanner } from "@/components/buy-me-coffee-banner";
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
 
 interface RealCompetitor {
     videoId: string;
@@ -190,15 +197,12 @@ const FactorComparisonChart = ({ factors }: { factors: BattleFactor[] }) => {
                                 </div>
                             </div>
                             
-                            {/* Visual Dual Progress Bar */}
                             <div className="w-full flex flex-col gap-1">
                                 <div className="w-full h-2.5 rounded-full bg-muted/50 overflow-hidden relative">
-                                    {/* Competitor Avg Bar */}
                                     <div
                                         className="h-full rounded-full bg-slate-300 dark:bg-slate-700 transition-all duration-700"
                                         style={{ width: `${factor.competitorAvg}%` }}
                                     />
-                                    {/* User Overlay Bar */}
                                     <div
                                         className={`h-full rounded-full transition-all duration-700 -mt-2.5 ${isWinning ? "bg-gradient-to-r from-emerald-500 to-teal-400" : "bg-gradient-to-r from-rose-500 to-amber-500"}`}
                                         style={{ width: `${factor.userScore}%` }}
@@ -259,6 +263,17 @@ export const ThumbnailBattlefieldForm = () => {
         }
     };
 
+    const resetInputs = () => {
+        setKeyword("");
+        setTitle("");
+        setThumbnailUrl("");
+        setPreviewImage("");
+        setChannelSize("1K-10K");
+        setTargetRegion("Global");
+        setActiveSurface("search");
+        setUserPosition(1);
+    };
+
     const handleImageUpload = (e: ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (file) {
@@ -279,8 +294,8 @@ export const ThumbnailBattlefieldForm = () => {
         setTimeout(() => setCopiedIndex(null), 2000);
     };
 
-    const handleAnalyze = async (e: React.FormEvent) => {
-        e.preventDefault();
+    const handleAnalyze = async (e?: React.FormEvent) => {
+        if (e) e.preventDefault();
 
         if (!keyword.trim()) {
             toast.error("Please enter your target keyword or topic.");
@@ -323,8 +338,8 @@ export const ThumbnailBattlefieldForm = () => {
                 if (resData.data) {
                     setResult(resData.data);
                     confetti({
-                        particleCount: 120,
-                        spread: 80,
+                        particleCount: 100,
+                        spread: 70,
                         origin: { y: 0.6 }
                     });
                     toast.success("Thumbnail Battlefield analysis complete!");
@@ -338,7 +353,6 @@ export const ThumbnailBattlefieldForm = () => {
         });
     };
 
-    // Blend real YouTube scraped competitors into AI result cards if available
     const blendedCompetitors = result?.searchShelfSimulation.competitors.map((comp, idx) => {
         const real = realCompetitors[idx];
         return {
@@ -351,7 +365,6 @@ export const ThumbnailBattlefieldForm = () => {
         };
     }) || [];
 
-    // Construct array of videos for live preview simulator based on user position
     const userVideoMock = {
         isUser: true,
         title: title || "Your Planned Video Title Goes Here",
@@ -376,227 +389,208 @@ export const ThumbnailBattlefieldForm = () => {
         { isUser: false, title: "Dumbbell Chest Workout at Home - Full Session", channelName: "Rowan Row", views: "1.2M views", publishedTime: "1 year ago", thumbnailUrl: "https://i.ytimg.com/vi/fUk-rdHDl3w/hqdefault.jpg", packagingScore: 75 },
     ];
 
-    // Build the ordered list for preview simulation based on userPosition (1-indexed)
     const simulatedFeedList = [...competitorMocks];
     simulatedFeedList.splice(userPosition - 1, 0, userVideoMock);
 
     return (
-        <div className="w-full flex flex-col gap-6 items-center pt-2 md:pt-6 max-w-6xl mx-auto px-2 sm:px-4">
+        <div className="w-full flex flex-col gap-2.5 items-center pt-4 md:pt-10">
             
-            {/* TOOL HEADER */}
-            <div className="w-full flex flex-col gap-2 items-center text-center">
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-500/10 border border-rose-500/20 text-rose-600 dark:text-rose-400 text-xs font-semibold">
-                    <Swords className="w-3.5 h-3.5" />
-                    <span>YouTube Thumbnail Battlefield™</span>
-                    <span className="text-[10px] bg-rose-500/20 text-rose-600 dark:text-rose-300 px-1.5 py-0.2 rounded font-semibold ml-1">Live Feed</span>
+            {/* MATCHING GLOBAL TOOL HEADER */}
+            <h1 className="text-2xl font-semibold text-center bg-gradient-to-tr from-black/90 via-black/90 to-primary-foreground text-transparent bg-clip-text dark:from-primary-foreground dark:via-primary-foreground dark:to-dark mb-2">
+                Thumbnail Battlefield Tool
+            </h1>
+
+            {/* UNIFORM UNBOXED INPUT FORM */}
+            <div className="w-full flex gap-4 flex-col items-center">
+                
+                {/* ROW 1: KEYWORD & TITLE */}
+                <div className="w-full flex flex-col md:flex-row items-center gap-4">
+                    <div className="w-full flex gap-1 flex-col text-left">
+                        <div className="flex items-center justify-between">
+                            <Label htmlFor="keyword">Target Keyword / Search Topic *</Label>
+                            {isFetchingCompetitors && (
+                                <span className="text-xs font-medium text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
+                                    <RefreshCw className="w-3 h-3 animate-spin" /> Fetching Competitors...
+                                </span>
+                            )}
+                        </div>
+                        <Input
+                            id="keyword"
+                            type="text"
+                            placeholder="e.g. chest workout at home, python tutorial..."
+                            className="w-full"
+                            autoFocus
+                            value={keyword}
+                            onChange={(e) => setKeyword(e.target.value)}
+                            onBlur={() => handleFetchCompetitors(keyword)}
+                        />
+                    </div>
+
+                    <div className="w-full flex gap-1 flex-col text-left">
+                        <Label htmlFor="title">Planned Video Title *</Label>
+                        <Input
+                            id="title"
+                            type="text"
+                            placeholder="e.g. 5 Best Chest Exercises for a Bigger Chest..."
+                            className="w-full"
+                            value={title}
+                            onChange={(e) => setTitle(e.target.value)}
+                        />
+                    </div>
                 </div>
-                <h1 className="text-2xl sm:text-3xl font-bold bg-gradient-to-tr from-black/90 via-black/90 to-primary-foreground text-transparent bg-clip-text dark:from-primary-foreground dark:via-primary-foreground dark:to-dark">
-                    Thumbnail Battlefield & Competitor Simulator
-                </h1>
-                <p className="text-muted-foreground text-xs sm:text-sm max-w-2xl leading-relaxed">
-                    Test your thumbnail directly alongside real YouTube competitors in live mobile & desktop feeds. Evaluate CTR packaging, readability, and title synergy before publishing.
-                </p>
-            </div>
 
-            {/* FORM CONTAINER CARD */}
-            <div className="w-full bg-card border rounded-2xl p-4 sm:p-5 md:p-6 shadow-sm flex flex-col gap-5 text-left">
-                <form onSubmit={handleAnalyze} className="w-full flex flex-col gap-5">
-                    <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-5">
-                        
-                        {/* Target Keyword */}
-                        <div className="flex flex-col gap-2 text-left">
-                            <Label htmlFor="keyword" className="text-xs font-semibold text-foreground flex items-center justify-between">
-                                <span>1. Target Keyword / Search Topic <span className="text-rose-500">*</span></span>
-                                {isFetchingCompetitors && (
-                                    <span className="text-[10px] text-primary flex items-center gap-1">
-                                        <RefreshCw className="w-3 h-3 animate-spin" /> Fetching YouTube Competitors...
-                                    </span>
-                                )}
-                            </Label>
-                            <div className="relative">
-                                <Input
-                                    id="keyword"
-                                    placeholder="e.g. chest workout at home, python tutorial..."
-                                    value={keyword}
-                                    onChange={(e) => setKeyword(e.target.value)}
-                                    onBlur={() => handleFetchCompetitors(keyword)}
-                                    className="h-10 text-xs border-border w-full pr-28 rounded-xl"
+                {/* ROW 2: THUMBNAIL UPLOAD & PREVIEW */}
+                <div className="w-full flex flex-col gap-2 text-left">
+                    <Label>Thumbnail Image (Upload File or Paste Image URL)</Label>
+                    
+                    <div className="w-full grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
+                        <div className="md:col-span-8 flex flex-col gap-2">
+                            <div className="relative border-2 border-dashed border-border rounded-lg p-4 text-center hover:border-primary/50 transition-colors bg-muted/20">
+                                <input
+                                    type="file"
+                                    accept="image/*"
+                                    onChange={handleImageUpload}
+                                    className="absolute inset-0 opacity-0 cursor-pointer w-full h-full z-10"
                                 />
-                                <button
-                                    type="button"
-                                    onClick={() => handleFetchCompetitors(keyword)}
-                                    className="absolute right-1.5 top-1.5 bottom-1.5 px-2.5 bg-muted hover:bg-muted/80 text-foreground text-[10px] font-bold rounded-lg flex items-center gap-1 transition-colors"
-                                >
-                                    <Search className="w-3 h-3" /> Fetch Real
-                                </button>
+                                <div className="flex flex-col items-center justify-center gap-1 py-1">
+                                    <Upload className="w-5 h-5 text-muted-foreground" />
+                                    <span className="text-xs font-semibold text-foreground">Drag & drop your thumbnail or click to browse</span>
+                                    <span className="text-[10px] text-muted-foreground">PNG, JPG, WEBP (Recommended: 1280x720 16:9)</span>
+                                </div>
+                            </div>
+                            
+                            <div className="flex items-center gap-2">
+                                <span className="text-[10px] uppercase font-bold text-muted-foreground whitespace-nowrap">OR Paste Image URL:</span>
+                                <Input
+                                    placeholder="https://i.ytimg.com/vi/.../maxresdefault.jpg"
+                                    value={thumbnailUrl}
+                                    onChange={(e) => {
+                                        setThumbnailUrl(e.target.value);
+                                        setPreviewImage(e.target.value);
+                                    }}
+                                    className="h-9 text-xs border-border flex-1"
+                                />
                             </div>
                         </div>
 
-                        {/* Video Title */}
-                        <div className="flex flex-col gap-2 text-left">
-                            <Label htmlFor="title" className="text-xs font-semibold text-foreground">
-                                2. Planned Video Title <span className="text-rose-500">*</span>
-                            </Label>
-                            <Input
-                                id="title"
-                                placeholder="e.g. 5 Best Chest Exercises for a Bigger Chest At Home..."
-                                value={title}
-                                onChange={(e) => setTitle(e.target.value)}
-                                className="h-10 text-xs border-border w-full rounded-xl"
-                            />
-                        </div>
-                    </div>
-
-                    {/* Thumbnail Upload or Image URL */}
-                    <div className="w-full flex flex-col gap-2.5 text-left">
-                        <Label className="text-xs font-semibold text-foreground">
-                            3. Thumbnail Image (Upload File or Paste Image URL)
-                        </Label>
-                        
-                        <div className="w-full grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
-                            <div className="md:col-span-8 flex flex-col gap-2.5">
-                                <div className="relative border-2 border-dashed border-border rounded-xl p-4 text-center hover:border-rose-500/60 transition-colors bg-muted/20">
-                                    <input
-                                        type="file"
-                                        accept="image/*"
-                                        onChange={handleImageUpload}
-                                        className="absolute inset-0 opacity-0 cursor-pointer w-full h-full z-10"
-                                    />
-                                    <div className="flex flex-col items-center justify-center gap-1 py-1">
-                                        <div className="w-9 h-9 rounded-full bg-rose-500/10 flex items-center justify-center text-rose-500 mb-0.5">
-                                            <Upload className="w-4 h-4" />
-                                        </div>
-                                        <span className="text-xs font-semibold text-foreground">Drag & drop your thumbnail or click to browse</span>
-                                        <span className="text-[10px] text-muted-foreground">PNG, JPG, WEBP (Recommended: 1280x720 16:9)</span>
+                        {/* Live Image Preview Frame */}
+                        <div className="md:col-span-4 flex flex-col items-center justify-center">
+                            {previewImage ? (
+                                <div className="relative w-full aspect-video rounded-lg overflow-hidden border border-border shadow-xs group bg-slate-900">
+                                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                                    <img src={previewImage} alt="Thumbnail Preview" className="w-full h-full object-cover" />
+                                    <div className="absolute top-2 left-2 bg-rose-600 text-white text-[9px] font-extrabold px-2 py-0.5 rounded shadow">
+                                        YOUR THUMBNAIL
                                     </div>
-                                </div>
-                                
-                                <div className="flex items-center gap-2">
-                                    <span className="text-[10px] uppercase font-bold text-muted-foreground whitespace-nowrap">OR Image URL:</span>
-                                    <Input
-                                        placeholder="https://i.ytimg.com/vi/.../maxresdefault.jpg"
-                                        value={thumbnailUrl}
-                                        onChange={(e) => {
-                                            setThumbnailUrl(e.target.value);
-                                            setPreviewImage(e.target.value);
+                                    <button
+                                        type="button"
+                                        onClick={() => {
+                                            setPreviewImage("");
+                                            setThumbnailUrl("");
                                         }}
-                                        className="h-9 text-xs border-border flex-1 rounded-lg"
-                                    />
+                                        className="absolute top-2 right-2 bg-black/80 text-white text-[10px] px-2 py-0.5 rounded-full hover:bg-rose-600 transition-colors"
+                                    >
+                                        Remove
+                                    </button>
                                 </div>
-                            </div>
-
-                            {/* Live Image Preview Frame */}
-                            <div className="md:col-span-4 flex flex-col items-center justify-center">
-                                {previewImage ? (
-                                    <div className="relative w-full aspect-video rounded-xl overflow-hidden border-2 border-rose-500/50 shadow-sm group bg-slate-900">
-                                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                                        <img src={previewImage} alt="Thumbnail Preview" className="w-full h-full object-cover" />
-                                        <div className="absolute top-2 left-2 bg-rose-600 text-white text-[9px] font-extrabold px-2 py-0.5 rounded shadow">
-                                            YOUR THUMBNAIL
-                                        </div>
-                                        <button
-                                            type="button"
-                                            onClick={() => {
-                                                setPreviewImage("");
-                                                setThumbnailUrl("");
-                                            }}
-                                            className="absolute top-2 right-2 bg-black/80 text-white text-[10px] px-2 py-0.5 rounded-full hover:bg-rose-600 transition-colors"
-                                        >
-                                            Remove
-                                        </button>
-                                    </div>
-                                ) : (
-                                    <div className="w-full aspect-video rounded-xl border border-dashed border-border bg-muted/30 flex flex-col items-center justify-center text-muted-foreground gap-1.5 p-3 text-center">
-                                        <ImageIcon className="w-6 h-6 text-muted-foreground/50" />
-                                        <span className="text-xs font-medium">No Thumbnail Uploaded</span>
-                                        <span className="text-[10px] text-muted-foreground">Upload image to view live battlefield</span>
-                                    </div>
-                                )}
-                            </div>
+                            ) : (
+                                <div className="w-full aspect-video rounded-lg border border-dashed border-border bg-muted/30 flex flex-col items-center justify-center text-muted-foreground gap-1 p-3 text-center">
+                                    <ImageIcon className="w-5 h-5 text-muted-foreground/60" />
+                                    <span className="text-xs font-medium">No Thumbnail Uploaded</span>
+                                    <span className="text-[10px] text-muted-foreground">Upload to view battlefield</span>
+                                </div>
+                            )}
                         </div>
                     </div>
+                </div>
 
-                    {/* Additional Settings */}
-                    <div className="w-full grid grid-cols-2 sm:grid-cols-4 gap-3 pt-3 border-t border-border/60 text-left">
-                        <div className="flex flex-col gap-1">
-                            <Label className="text-[11px] font-medium text-muted-foreground">Channel Size</Label>
-                            <select
-                                value={channelSize}
-                                onChange={(e) => setChannelSize(e.target.value)}
-                                className="h-9 rounded-lg border border-border bg-background px-2.5 text-xs font-medium"
-                            >
-                                <option value="New (0-1K)">New Channel (0-1K)</option>
-                                <option value="1K-10K">Small (1K-10K)</option>
-                                <option value="10K-100K">Growing (10K-100K)</option>
-                                <option value="100K+">Established (100K+)</option>
-                            </select>
-                        </div>
-
-                        <div className="flex flex-col gap-1">
-                            <Label className="text-[11px] font-medium text-muted-foreground">Target Region</Label>
-                            <select
-                                value={targetRegion}
-                                onChange={(e) => setTargetRegion(e.target.value)}
-                                className="h-9 rounded-lg border border-border bg-background px-2.5 text-xs font-medium"
-                            >
-                                <option value="Global">Global</option>
-                                <option value="United States">United States</option>
-                                <option value="India">India</option>
-                                <option value="United Kingdom">United Kingdom</option>
-                            </select>
-                        </div>
-
-                        <div className="flex flex-col gap-1">
-                            <Label className="text-[11px] font-medium text-muted-foreground">Surface Context</Label>
-                            <select
-                                value={activeSurface}
-                                onChange={(e) => setActiveSurface(e.target.value as any)}
-                                className="h-9 rounded-lg border border-border bg-background px-2.5 text-xs font-medium"
-                            >
-                                <option value="search">🔎 YouTube Search</option>
-                                <option value="home">🏠 Home Feed</option>
-                                <option value="suggested">▶️ Suggested Videos</option>
-                                <option value="mobile">📱 Mobile Search</option>
-                            </select>
-                        </div>
-
-                        <div className="flex flex-col gap-1">
-                            <Label className="text-[11px] font-medium text-muted-foreground">User Rank Spot</Label>
-                            <select
-                                value={userPosition}
-                                onChange={(e) => setUserPosition(Number(e.target.value))}
-                                className="h-9 rounded-lg border border-border bg-background px-2.5 text-xs font-medium"
-                            >
-                                <option value={1}>Rank #1 (Top Spot)</option>
-                                <option value={2}>Rank #2</option>
-                                <option value={3}>Rank #3</option>
-                                <option value={4}>Rank #4</option>
-                            </select>
-                        </div>
+                {/* ROW 3: TARGET PARAMETERS & DROPDOWNS */}
+                <div className="w-full grid grid-cols-2 sm:grid-cols-4 gap-4 text-left">
+                    <div className="flex flex-col gap-1">
+                        <Label htmlFor="channel-size-select" className="text-xs text-muted-foreground">Channel Size</Label>
+                        <Select value={channelSize} onValueChange={setChannelSize}>
+                            <SelectTrigger id="channel-size-select" className="w-full h-9 text-xs">
+                                <SelectValue placeholder="Select Size" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="New (0-1K)">New (0-1K)</SelectItem>
+                                <SelectItem value="1K-10K">1K-10K</SelectItem>
+                                <SelectItem value="10K-100K">10K-100K</SelectItem>
+                                <SelectItem value="100K+">100K+</SelectItem>
+                            </SelectContent>
+                        </Select>
                     </div>
 
-                    {/* Submit Button */}
+                    <div className="flex flex-col gap-1">
+                        <Label htmlFor="target-region-select" className="text-xs text-muted-foreground">Target Region</Label>
+                        <Select value={targetRegion} onValueChange={setTargetRegion}>
+                            <SelectTrigger id="target-region-select" className="w-full h-9 text-xs">
+                                <SelectValue placeholder="Select Region" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="Global">Global</SelectItem>
+                                <SelectItem value="United States">United States</SelectItem>
+                                <SelectItem value="India">India</SelectItem>
+                                <SelectItem value="United Kingdom">United Kingdom</SelectItem>
+                            </SelectContent>
+                        </Select>
+                    </div>
+
+                    <div className="flex flex-col gap-1">
+                        <Label htmlFor="surface-context-select" className="text-xs text-muted-foreground">Surface Context</Label>
+                        <Select value={activeSurface} onValueChange={(val) => setActiveSurface(val as any)}>
+                            <SelectTrigger id="surface-context-select" className="w-full h-9 text-xs">
+                                <SelectValue placeholder="Select Surface" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="search">🔎 YouTube Search</SelectItem>
+                                <SelectItem value="home">🏠 Home Feed</SelectItem>
+                                <SelectItem value="suggested">▶️ Suggested Videos</SelectItem>
+                                <SelectItem value="mobile">📱 Mobile Search</SelectItem>
+                            </SelectContent>
+                        </Select>
+                    </div>
+
+                    <div className="flex flex-col gap-1">
+                        <Label htmlFor="user-rank-select" className="text-xs text-muted-foreground">User Rank Spot</Label>
+                        <Select value={String(userPosition)} onValueChange={(val) => setUserPosition(Number(val))}>
+                            <SelectTrigger id="user-rank-select" className="w-full h-9 text-xs">
+                                <SelectValue placeholder="Select Spot" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="1">Rank #1 (Top Spot)</SelectItem>
+                                <SelectItem value="2">Rank #2</SelectItem>
+                                <SelectItem value="3">Rank #3</SelectItem>
+                                <SelectItem value="4">Rank #4</SelectItem>
+                            </SelectContent>
+                        </Select>
+                    </div>
+                </div>
+
+                {/* ACTION BUTTONS (Matching global site design) */}
+                <div className="w-full flex items-center justify-end gap-2 mt-1">
                     <Button
-                        type="submit"
-                        disabled={isPending || !keyword.trim() || !title.trim()}
-                        className="h-11 text-xs font-bold gap-2 w-full shadow-md bg-gradient-to-r from-rose-600 via-rose-500 to-amber-500 hover:opacity-95 text-white rounded-xl"
+                        variant="outline"
+                        disabled={!keyword && !title}
+                        onClick={resetInputs}
+                        type="button"
                     >
-                        {isPending ? (
-                            <>
-                                <RefreshCw className="w-4 h-4 animate-spin" /> Analyzing Thumbnail Packaging & Real Competitors...
-                            </>
-                        ) : (
-                            <>
-                                <Swords className="w-4 h-4" /> Enter Thumbnail Battlefield & Compare
-                            </>
-                        )}
+                        Reset
                     </Button>
-                </form>
+                    <Button
+                        disabled={!keyword.trim() || !title.trim() || isPending}
+                        onClick={() => handleAnalyze()}
+                        type="button"
+                    >
+                        {isPending ? "Analyzing..." : "Generate"}
+                    </Button>
+                </div>
+
             </div>
 
             {/* SKELETON LOADING STATE */}
             {isPending && (
-                <div className="w-full flex gap-4 flex-col items-center mt-4">
+                <div className="w-full flex gap-2 flex-col items-center mt-8">
                     <Skeleton className="w-full h-[380px] rounded-2xl" />
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
                         <Skeleton className="w-full h-[280px] rounded-2xl" />
@@ -605,9 +599,9 @@ export const ThumbnailBattlefieldForm = () => {
                 </div>
             )}
 
-            {/* UNIFIED SINGLE MASTER OUTPUT CONTAINER (Matches go-no-go, video-audit, title-ab-tester) */}
+            {/* UNIFIED SINGLE MASTER OUTPUT CONTAINER */}
             {result && !isPending && (
-                <div className="w-full bg-card border rounded-2xl shadow-sm flex flex-col divide-y divide-border overflow-hidden text-left animate-in fade-in duration-300 my-4">
+                <div className="w-full bg-card border rounded-2xl shadow-sm flex flex-col divide-y divide-border overflow-hidden text-left animate-in fade-in duration-300 mt-8">
                     
                     {/* SECTION 1: MASTER SPEEDOMETER & EXECUTIVE AUDIT SUMMARY */}
                     <div className="w-full p-5 sm:p-6 md:p-8 flex flex-col gap-6">
@@ -675,7 +669,6 @@ export const ThumbnailBattlefieldForm = () => {
 
                             {/* Viewport & Theme Controls */}
                             <div className="flex items-center gap-2">
-                                {/* Theme Switcher (Light vs Dark) */}
                                 <div className="flex items-center gap-1 bg-background border p-1 rounded-xl">
                                     <Button
                                         type="button"
@@ -697,7 +690,6 @@ export const ThumbnailBattlefieldForm = () => {
                                     </Button>
                                 </div>
 
-                                {/* Mobile vs Desktop Device Switcher */}
                                 <div className="flex items-center gap-1 bg-background border p-1 rounded-xl">
                                     <Button
                                         type="button"
@@ -721,16 +713,14 @@ export const ThumbnailBattlefieldForm = () => {
                             </div>
                         </div>
 
-                        {/* 📱 MOBILE PHONE SIMULATOR VIEW (Supports Light & Dark Themes) */}
+                        {/* MOBILE PHONE SIMULATOR VIEW */}
                         {previewDevice === "mobile" && (
                             <div className="w-full flex justify-center py-2">
                                 <div className={`w-full max-w-[390px] border-[8px] border-slate-800 rounded-[40px] overflow-hidden shadow-2xl relative transition-colors ${simulatorTheme === "light" ? "bg-white text-slate-900" : "bg-slate-950 text-white"}`}>
-                                    {/* Phone Notch */}
                                     <div className="w-28 h-4 bg-slate-800 rounded-b-xl mx-auto flex items-center justify-center">
                                         <div className="w-3 h-3 rounded-full bg-slate-950 border border-slate-700" />
                                     </div>
 
-                                    {/* Mobile App Header */}
                                     <div className={`px-4 py-2.5 flex items-center justify-between border-b ${simulatorTheme === "light" ? "bg-white border-slate-200 text-slate-900" : "bg-slate-950 border-slate-800 text-white"}`}>
                                         <div className="flex items-center gap-1.5">
                                             <div className="w-5 h-3.5 bg-rose-600 rounded flex items-center justify-center text-[8px] font-black text-white">▶</div>
@@ -742,13 +732,11 @@ export const ThumbnailBattlefieldForm = () => {
                                         </div>
                                     </div>
 
-                                    {/* Query Bar */}
                                     <div className={`px-3 py-1.5 border-b flex items-center justify-between text-[11px] ${simulatorTheme === "light" ? "bg-slate-100 border-slate-200 text-slate-800" : "bg-slate-900 border-slate-800 text-slate-300"}`}>
                                         <span className="line-clamp-1">🔎 &quot;{keyword || "chest workout at home"}&quot;</span>
                                         <span className="text-[10px] text-rose-500 font-bold">Filter</span>
                                     </div>
 
-                                    {/* Mobile Feed Items */}
                                     <div className={`flex flex-col divide-y max-h-[480px] overflow-y-auto ${simulatorTheme === "light" ? "divide-slate-200 bg-white" : "divide-slate-800 bg-slate-950"}`}>
                                         {simulatedFeedList.map((item, idx) => (
                                             <div
@@ -797,10 +785,9 @@ export const ThumbnailBattlefieldForm = () => {
                             </div>
                         )}
 
-                        {/* 💻 DESKTOP BROWSER SIMULATOR VIEW (Supports Light & Dark Themes) */}
+                        {/* DESKTOP BROWSER SIMULATOR VIEW */}
                         {previewDevice === "desktop" && (
                             <div className={`w-full border rounded-xl overflow-hidden shadow-xl ${simulatorTheme === "light" ? "bg-white text-slate-900 border-slate-200" : "bg-slate-950 text-white border-slate-800"}`}>
-                                {/* macOS Window Header */}
                                 <div className={`px-4 py-2.5 border-b flex items-center justify-between ${simulatorTheme === "light" ? "bg-slate-100 border-slate-200" : "bg-slate-900 border-slate-800"}`}>
                                     <div className="flex items-center gap-2">
                                         <span className="w-3 h-3 rounded-full bg-rose-500 inline-block" />
@@ -813,7 +800,6 @@ export const ThumbnailBattlefieldForm = () => {
                                     </span>
                                 </div>
 
-                                {/* Desktop Search Feed List */}
                                 <div className="p-4 flex flex-col gap-3.5 max-h-[500px] overflow-y-auto">
                                     {simulatedFeedList.map((item, idx) => (
                                         <div
@@ -864,7 +850,7 @@ export const ThumbnailBattlefieldForm = () => {
                         )}
                     </div>
 
-                    {/* SECTION 3: COMPETITOR THUMBNAIL BATTLE MATRIX (REAL THUMBNAILS) */}
+                    {/* SECTION 3: COMPETITOR THUMBNAIL BATTLE MATRIX */}
                     <div className="w-full p-5 sm:p-6 flex flex-col gap-5">
                         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-border pb-3">
                             <div className="flex items-center gap-2">
@@ -992,7 +978,7 @@ export const ThumbnailBattlefieldForm = () => {
                         </div>
                     </div>
 
-                    {/* SECTION 5: MOBILE READABILITY & FAST-SCROLL STRESS TEST (HIGH UTILITY CREATOR TOOL) */}
+                    {/* SECTION 5: MOBILE READABILITY & FAST-SCROLL STRESS TEST */}
                     <div className="w-full p-5 sm:p-6 flex flex-col gap-4">
                         <div className="flex items-center justify-between border-b border-border pb-3">
                             <div className="flex items-center gap-2">
@@ -1008,7 +994,6 @@ export const ThumbnailBattlefieldForm = () => {
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-1">
-                            {/* Micro Scale Preview */}
                             <div className="p-4 rounded-xl bg-muted/20 border flex flex-col gap-2.5 items-center text-center">
                                 <span className="text-xs font-bold text-foreground">1. Tiny Mobile Sidebar View (120px)</span>
                                 <div className="w-32 aspect-video rounded-lg overflow-hidden border border-border shadow-xs bg-slate-900">
@@ -1022,7 +1007,6 @@ export const ThumbnailBattlefieldForm = () => {
                                 <span className="text-[11px] text-muted-foreground">Is text legible and main subject instantly recognizable at this size?</span>
                             </div>
 
-                            {/* Blur & Fast Scroll Simulation */}
                             <div className="p-4 rounded-xl bg-muted/20 border flex flex-col gap-2.5 items-center text-center">
                                 <span className="text-xs font-bold text-foreground">2. 0.3s Fast-Scroll Pop Test</span>
                                 <div className="w-36 aspect-video rounded-lg overflow-hidden border border-border shadow-xs bg-slate-900 relative">
@@ -1036,7 +1020,6 @@ export const ThumbnailBattlefieldForm = () => {
                                 <span className="text-[11px] text-muted-foreground">Does the visual contrast pull viewer eyes while fast-scrolling down feed?</span>
                             </div>
 
-                            {/* Mobile Checklist */}
                             <div className="p-4 rounded-xl bg-muted/20 border flex flex-col gap-2 text-left justify-between">
                                 <span className="text-xs font-bold text-foreground flex items-center gap-1">
                                     <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" /> Mobile Packaging Checklist
@@ -1094,7 +1077,6 @@ export const ThumbnailBattlefieldForm = () => {
                     {/* SECTION 7: 3 ACTIONABLE FIXES & RECOMMENDED A/B CONCEPTS */}
                     <div className="w-full p-5 sm:p-6 flex flex-col gap-6">
                         
-                        {/* Fixes */}
                         <div className="flex flex-col gap-3">
                             <div className="flex items-center gap-2">
                                 <Target className="w-5 h-5 text-rose-500" />
@@ -1112,7 +1094,6 @@ export const ThumbnailBattlefieldForm = () => {
                             </div>
                         </div>
 
-                        {/* Recommended A/B Concepts */}
                         {result.aBTestVariations && result.aBTestVariations.length > 0 && (
                             <div className="flex flex-col gap-3 pt-3 border-t border-border">
                                 <div className="flex items-center justify-between">
