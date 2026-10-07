@@ -193,8 +193,8 @@ export const ThumbnailBattlefieldForm = () => {
             </h1>
 
             {/* UNIFORM FORM CONTAINER */}
-            <form onSubmit={handleAnalyze} className="w-full flex gap-4 flex-col items-center">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <form onSubmit={handleAnalyze} className="w-full flex flex-col gap-5">
+                <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-5">
                     {/* Target Keyword */}
                     <div className="flex flex-col gap-2 text-left">
                         <Label htmlFor="keyword" className="text-xs font-bold text-foreground">
@@ -205,7 +205,7 @@ export const ThumbnailBattlefieldForm = () => {
                             placeholder="e.g. chest workout at home, python tutorial..."
                             value={keyword}
                             onChange={(e) => setKeyword(e.target.value)}
-                            className="h-11 text-xs border-border"
+                            className="h-11 text-xs border-border w-full"
                         />
                     </div>
 
@@ -219,18 +219,18 @@ export const ThumbnailBattlefieldForm = () => {
                             placeholder="e.g. 5 Best Chest Exercises for a Bigger Chest..."
                             value={title}
                             onChange={(e) => setTitle(e.target.value)}
-                            className="h-11 text-xs border-border"
+                            className="h-11 text-xs border-border w-full"
                         />
                     </div>
                 </div>
 
                 {/* Thumbnail Upload or Image URL */}
-                <div className="flex flex-col gap-2 text-left">
+                <div className="w-full flex flex-col gap-2 text-left">
                     <Label className="text-xs font-bold text-foreground">
                         Thumbnail Image (Upload File or Image URL)
                     </Label>
                     
-                    <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
+                    <div className="w-full grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
                         <div className="md:col-span-8 flex flex-col gap-2">
                             <div className="relative border-2 border-dashed border-border rounded-xl p-4 text-center hover:border-primary/50 transition-colors bg-muted/20">
                                 <input
@@ -288,7 +288,7 @@ export const ThumbnailBattlefieldForm = () => {
                 </div>
 
                 {/* Additional Settings */}
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 border-t border-border pt-4 text-left">
+                <div className="w-full grid grid-cols-2 sm:grid-cols-4 gap-3 border-t border-border pt-4 text-left">
                     <div className="flex flex-col gap-1">
                         <Label className="text-[11px] text-muted-foreground">Channel Size</Label>
                         <select

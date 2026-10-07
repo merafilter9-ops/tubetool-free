@@ -285,8 +285,8 @@ export const VideoAuditForm = () => {
             </h1>
 
             {/* UNIFORM FORM CONTAINER */}
-            <form onSubmit={handleAudit} className="w-full flex gap-4 flex-col items-center">
-                <div className="flex flex-col gap-2">
+            <form onSubmit={handleAudit} className="w-full flex flex-col gap-5">
+                <div className="w-full flex flex-col gap-2">
                     <Label htmlFor="videoUrl" className="text-sm font-semibold flex items-center justify-between">
                         <span>YouTube Video URL <span className="text-rose-500">*</span></span>
                         {videoId && (
@@ -295,13 +295,13 @@ export const VideoAuditForm = () => {
                             </span>
                         )}
                     </Label>
-                    <div className="relative flex items-center">
+                    <div className="relative flex items-center w-full">
                         <Input
                             id="videoUrl"
                             placeholder="https://www.youtube.com/watch?v=dQw4w9WgXcQ or https://youtu.be/..."
                             value={videoUrl}
                             onChange={(e) => setVideoUrl(e.target.value)}
-                            className="h-12 pl-4 pr-10 text-sm border-border focus-visible:ring-primary"
+                            className="h-12 pl-4 pr-10 text-sm border-border focus-visible:ring-primary w-full"
                         />
                         {isFetchingInfo && (
                             <RefreshCw className="w-4 h-4 text-muted-foreground animate-spin absolute right-3" />
@@ -311,7 +311,7 @@ export const VideoAuditForm = () => {
 
                 {/* Live YouTube Metadata Preview Card */}
                 {videoId && (
-                    <div className="flex flex-col sm:flex-row items-center gap-4 p-4 rounded-xl bg-muted/40 border border-border/60">
+                    <div className="w-full flex flex-col sm:flex-row items-center gap-4 p-4 rounded-xl bg-muted/40 border border-border/60">
                         {thumbnailUrl && (
                             <div className="relative w-full sm:w-44 aspect-video rounded-lg overflow-hidden border border-border flex-shrink-0">
                                 {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -335,7 +335,7 @@ export const VideoAuditForm = () => {
                 )}
 
                 {/* Collapsible Manual Fine-Tuning */}
-                <div className="border-t border-border pt-3">
+                <div className="w-full border-t border-border pt-3">
                     <button
                         type="button"
                         onClick={() => setShowManualFields(!showManualFields)}
