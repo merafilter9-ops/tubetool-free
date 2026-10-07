@@ -131,13 +131,18 @@ export const ThumbnailBattlefieldForm = () => {
 
         startTransition(async () => {
             try {
+                const imageToSend = (thumbnailUrl || previewImage || "").startsWith("data:")
+                    ? "[Uploaded User Thumbnail Image]"
+                    : (thumbnailUrl || previewImage);
+
                 const response = await fetch("/api/ai/thumbnail-battlefield", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
                         keyword,
                         title,
-                        thumbnailUrl: thumbnailUrl || previewImage,
+                        thumbnailUrl: imageToSend,
+                        hasImageUploaded: !!previewImage,
                         channelSize,
                         targetRegion,
                         surface: activeSurface
@@ -145,7 +150,8 @@ export const ThumbnailBattlefieldForm = () => {
                 });
 
                 if (!response.ok) {
-                    throw new Error("Failed to run Thumbnail Battlefield audit");
+                    const errJson = await response.json().catch(() => ({}));
+                    throw new Error(errJson.error || "Failed to run Thumbnail Battlefield audit");
                 }
 
                 const resData = await response.json();

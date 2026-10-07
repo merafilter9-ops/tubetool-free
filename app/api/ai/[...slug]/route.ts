@@ -12,8 +12,14 @@ export async function POST(req: Request, { params }: { params: { slug: string[] 
         const body = await req.json();
         const data = body.data || body;
 
+        // Sanitize base64 data URLs in payload to avoid blowing up DeepSeek prompt tokens
+        const cleanData = { ...data };
+        if (cleanData.thumbnailUrl && typeof cleanData.thumbnailUrl === 'string' && cleanData.thumbnailUrl.startsWith('data:')) {
+            cleanData.thumbnailUrl = '[Uploaded User Thumbnail Image]';
+        }
+
         let systemPrompt = "You are a helpful YouTube expert AI.";
-        const userPrompt = JSON.stringify(data);
+        const userPrompt = JSON.stringify(cleanData);
         let jsonStructure = '';
 
         switch (slug) {
@@ -95,8 +101,8 @@ export async function POST(req: Request, { params }: { params: { slug: string[] 
 
         return NextResponse.json({ data: parsedResult });
 
-    } catch (error) {
+    } catch (error: any) {
         console.error('DeepSeek API Error:', error);
-        return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+        return NextResponse.json({ error: error?.message || 'Internal Server Error' }, { status: 500 });
     }
 }
