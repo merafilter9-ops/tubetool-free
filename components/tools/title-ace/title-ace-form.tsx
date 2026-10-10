@@ -5,8 +5,6 @@ import {
   Sparkles, 
   Search, 
   Tv, 
-  Users, 
-  Globe, 
   Copy, 
   Check, 
   Bookmark, 
@@ -22,9 +20,7 @@ import {
   ChevronUp,
   Eye,
   Award,
-  RotateCcw,
-  Zap,
-  TrendingUp
+  RotateCcw
 } from "lucide-react";
 import { toast } from "sonner";
 import confetti from 'canvas-confetti';

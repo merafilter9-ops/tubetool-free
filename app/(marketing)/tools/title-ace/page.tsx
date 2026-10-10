@@ -1,7 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
 
-import { Separator } from "@/components/ui/separator";
 import { TitleAceForm } from "@/components/tools/title-ace/title-ace-form";
 import InArticleAds from "@/components/adsense/in-article-ads";
 import { generateToolMetadata, generateToolJsonLd } from "@/lib/seo";
