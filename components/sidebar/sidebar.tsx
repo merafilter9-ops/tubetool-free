@@ -134,10 +134,15 @@ export const Sidebar = () => {
                                                             !isSidebarOpen && "justify-center"
                                                         )}
                                                     >
-                                                        <item.icon className="w-4 h-4" />
-                                                        <span className={cn("ml-2", !isSidebarOpen && "hidden")}>
+                                                        <item.icon className="w-4 h-4 shrink-0" />
+                                                        <span className={cn("ml-2 flex-1 text-left truncate", !isSidebarOpen && "hidden")}>
                                                             {item.label?.length > 23 ? item.label.slice(0, 23) + '...' : item.label}
                                                         </span>
+                                                        {item.badge && isSidebarOpen && (
+                                                            <span className="ml-auto px-1.5 py-0.5 text-[10px] font-extrabold uppercase rounded-full bg-rose-600 text-white shadow-sm">
+                                                                {item.badge}
+                                                            </span>
+                                                        )}
                                                     </Button>
                                                 </Link>
                                             </Tooltip>

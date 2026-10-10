@@ -728,6 +728,12 @@ export const METRICS: SelectOptionsType[] = [
 
 export const TOOLS = [
     {
+        label: "Title Ace",
+        value: "title-ace",
+        icon: Sparkles,
+        description: "Competitor-powered YouTube title intelligence. Analyze top ranking videos, discover title patterns, and win the click before you publish."
+    },
+    {
         label: "Title Generator",
         value: "title-generator",
         icon: Type,

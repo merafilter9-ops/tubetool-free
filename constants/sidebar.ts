@@ -17,6 +17,7 @@ import {
     ListTree,
     SearchCheck,
     Swords,
+    Target,
 } from 'lucide-react';
 
 import { SidebarItems } from '@/types/constants';
@@ -25,6 +26,13 @@ export const SIDEBAR_ITEMS: SidebarItems[] = [
     {
         category: 'Video Tools',
         items: [
+            {
+                label: 'Title Ace',
+                href: '/tools/title-ace',
+                icon: Target,
+                tooltip: 'Title Ace — Competitor Title Intelligence',
+                badge: 'New'
+            },
             {
                 label: 'Title Generator',
                 href: '/tools/title-generator',

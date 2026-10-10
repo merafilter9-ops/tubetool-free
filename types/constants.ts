@@ -3,6 +3,7 @@ export interface Items {
     href: string;
     icon: any;
     tooltip?: string;
+    badge?: string;
 }
 
 export interface SidebarItems {
